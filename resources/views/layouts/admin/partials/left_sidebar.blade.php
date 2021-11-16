@@ -18,19 +18,19 @@
                             href="{{ url('admin/claim') }}"><span> {{ __('message.form_claim_M')}}</span></a>
                         </li>
                         @endhasanyrole
-                        @hasanyrole('Header|ManagerGOP|Admin|ClaimGOP|AdminClaim|view')
+                        @hasanyrole('Header|ManagerGOP|Admin|ClaimGOP|AdminClaim|Supper|view')
                         <li class="{{ setActive('admin/claim') }}"> 
                             <a class="{{ setActive('admin/claim') }}"
                             href="{{ url('admin/P/claim') }}"><span> {{ __('message.form_claim_P')}}</span></a>
                         </li>
                         @endhasanyrole
-                        @hasanyrole('Header|ManagerGOP|Admin|AdminClaim|view')
+                        @hasanyrole('Header|ManagerGOP|Admin|AdminClaim|view|Supper')
                         <li class="{{ setActive('admin/reportAdmins') }}"> 
                             <a class="{{ setActive('admin/reportAdmins') }}"
                             href="{{ url('admin/reportAdmins') }}"><span> Report for Admin Claim</span></a>
                         </li>
                         @endhasanyrole
-                        @hasanyrole('Header|ManagerGOP|Admin|ClaimGOP|QC|view')
+                        @hasanyrole('Header|ManagerGOP|Admin|ClaimGOP|QC|view|Supper')
                         <li class="{{ setActive('admin/reportGop') }}"> 
                             <a class="{{ setActive('admin/reportGop') }}"
                             href="{{ url('admin/reportGop') }}"><span> Report for GOP Claim</span></a>

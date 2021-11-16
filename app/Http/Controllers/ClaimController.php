@@ -808,15 +808,18 @@ class ClaimController extends Controller
 
                 if($claim_type != "P"){
                     if($user->hasRole('Claim Independent')){
+                        $to_user = [$user_create->supper];
+                    }
+                    
+                    if( $user->hasRole('Supper')){
                         $to_user = User::whereHas("roles", function($q){ $q->where("name", "QC"); })->get()->pluck('id')->toArray();
                         $to_user = [Arr::random($to_user)];
                     }
-
-                    if(  $user_create->hasRole('Claim Independent') && $user->hasRole('QC') && removeFormatPrice(data_get($export_letter->info, 'approve_amt')) > 10000000){
+                    if( $user->hasRole('QC') && removeFormatPrice(data_get($export_letter->info, 'approve_amt')) >= 10000000){
                         $to_user = [$user_create->manager];
                     }
                     
-                    if( $user->hasRole('Manager') &&  removeFormatPrice(data_get($export_letter->info, 'approve_amt')) > 50000000){
+                    if( $user->hasRole('Manager') &&  removeFormatPrice(data_get($export_letter->info, 'approve_amt')) >= 50000000){
                         $to_user = [$user_create->header];
                     }
                 }
@@ -824,7 +827,11 @@ class ClaimController extends Controller
                 
                 // Claim GOP
                 if ($claim_type == "P") {
-                    if ($user->hasRole('ClaimGOP') && removeFormatPrice(data_get($export_letter->info, 'approve_amt')) > 10000000) {
+                    if ($user->hasRole('ClaimGOP')) {
+                        $to_user = User::whereHas("roles", function($q){ $q->where("name", "Supper"); })->get()->pluck('id')->toArray();
+                        $to_user = [Arr::random($to_user)];
+                    }
+                    if ($user->hasRole('Supper') && removeFormatPrice(data_get($export_letter->info, 'approve_amt')) > 10000000) {
                         $to_user = Setting::findOrFail(1)->manager_gop_claim;
                     }
                     if ($user->hasRole('ManagerGOP') &&  removeFormatPrice(data_get($export_letter->info, 'approve_amt')) > 50000000) {
