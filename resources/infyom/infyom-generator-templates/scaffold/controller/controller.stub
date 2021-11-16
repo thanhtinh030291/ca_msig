@@ -1,0 +1,141 @@
+<?php
+
+namespace $NAMESPACE_CONTROLLER$;
+
+use $NAMESPACE_REQUEST$\Create$MODEL_NAME$Request;
+use $NAMESPACE_REQUEST$\Update$MODEL_NAME$Request;
+use App\$MODEL_NAME$;
+use Auth;
+use App\User;
+use Illuminate\Http\Request;
+use Flash;
+use Response;
+use Illuminate\Support\Arr;
+
+class $MODEL_NAME$Controller extends Controller
+{
+    /** @var  $MODEL_NAME$Repository */
+    private $$MODEL_NAME_CAMEL$Repository;
+
+    public function __construct()
+    {
+        //$this->authorizeResource($MODEL_NAME$::class);
+        parent::__construct();
+    }
+
+    /**
+     * Display a listing of the $MODEL_NAME$.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $search_params = [
+            'created_user' => $request->get('created_user'),
+            'created_at' => $request->get('created_at'),
+            'updated_user' => $request->get('updated_user'),
+            'updated_at' => $request->get('updated_at'),
+        ];
+        $admin_list = User::getListIncharge();
+        $limit_list = config('constants.limit_list');
+        $limit = $request->get('limit');
+        $per_page = !empty($limit) ? $limit : Arr::first($limit_list);
+
+        $$MODEL_NAME_PLURAL_CAMEL$ =  $MODEL_NAME$::findByParams($search_params)->orderBy('id', 'desc');
+        $$MODEL_NAME_PLURAL_CAMEL$  = $$MODEL_NAME_PLURAL_CAMEL$->paginate($per_page);
+
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.index', compact('search_params', 'admin_list', 'limit', 'limit_list', '$MODEL_NAME_PLURAL_CAMEL$' ));           
+    }
+
+    /**
+     * Show the form for creating a new $MODEL_NAME$.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.create');
+    }
+
+    /**
+     * Store a newly created $MODEL_NAME$ in storage.
+     *
+     * @param Create$MODEL_NAME$Request $request
+     *
+     * @return Response
+     */
+    public function store(Create$MODEL_NAME$Request $request)
+    {
+        $userId = Auth::User()->id;
+        $data = $request->except([]);
+        $data['created_user'] = $userId;
+        $data['updated_user'] = $userId;
+
+        $MODEL_NAME$::create($data);
+        $request->session()->flash('status', '$MODEL_NAME_HUMAN$ saved successfully.');
+
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+    }
+
+    /**
+     * Display the specified $MODEL_NAME$.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function show($MODEL_NAME$ $$MODEL_NAME_CAMEL$)
+    {
+        
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.show', compact('$MODEL_NAME_CAMEL$'));
+    }
+
+    /**
+     * Show the form for editing the specified $MODEL_NAME$.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function edit($MODEL_NAME$ $$MODEL_NAME_CAMEL$)
+    {
+        
+        return view('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.edit',  compact('$MODEL_NAME_CAMEL$'));
+    }
+
+    /**
+     * Update the specified $MODEL_NAME$ in storage.
+     *
+     * @param int $id
+     * @param Update$MODEL_NAME$Request $request
+     *
+     * @return Response
+     */
+    public function update($MODEL_NAME$ $$MODEL_NAME_CAMEL$, Update$MODEL_NAME$Request $request)
+    {
+        $data = $request->except([]);
+        $userId = Auth::User()->id;
+        $data['updated_user'] = $userId;
+        $MODEL_NAME$::updateOrCreate(['id' => $$MODEL_NAME_CAMEL$->id], $data);
+
+        $request->session()->flash('status', '$MODEL_NAME_HUMAN$ updated successfully.'); 
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'));
+    }
+
+    /**
+     * Remove the specified $MODEL_NAME$ from storage.
+     *
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
+     */
+    public function destroy($MODEL_NAME$ $$MODEL_NAME_CAMEL$)
+    {
+        $$MODEL_NAME_CAMEL$->delete();
+        return redirect(route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index'))->with('status', '$MODEL_NAME_HUMAN$ deleted successfully.');
+    }
+}

@@ -1,0 +1,41 @@
+@extends('templateEmail.main')
+@section('content')
+  <table role="presentation" border="0" cellpadding="0" cellspacing="0" >
+    <tr>
+      <td>&nbsp;</td>
+      <td>
+        <div>
+
+          <!-- START CENTERED WHITE CONTAINER -->
+          <table role="presentation">
+
+            <!-- START MAIN CONTENT AREA -->
+            <tr>
+              <td>
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td>
+                      <p>Kính Gửi Quý khách: {{$data['HBS_CL_CLAIM']->MemberNameCap}}</p>
+                      <p>Chúng tôi xin gửi đến Quý khách: "{{$data['name_lette']}}" . </p>
+                      <p>Quý khách vui lòng xem thông tin chi tiết ở tệp đính kèm. </p>
+                      <p>thanks.</p>
+
+                      <p>Xin đừng trả lời trực tiếp email này. Nếu bạn có bất kỳ câu hỏi hoặc nhận xét nào về email này, vui lòng liên hệ với chúng tôi theo địa chỉ: <span style="color:blue">cskh.bsh@pacificcross.com.vn</span><p>
+                      <p> Thanks & Best Regards,</p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+          <!-- END MAIN CONTENT AREA -->
+          </table>
+        </div>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+@endsection
+@section('old_msg')
+    {!! data_get($data,'old_msg') !!}
+@endsection

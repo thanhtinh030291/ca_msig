@@ -1,0 +1,41 @@
+.control_btn {
+    min-width: 210px;
+}
+.text_input {
+    min-width: 100px;
+    max-width: 300px;
+    white-space: pre-wrap;
+}
+.small_width {
+    min-width: 100px;
+}
+.date_input {
+    min-width: 110px;
+}
+.user_status {
+    min-width: 120px;
+    text-align: center;
+}
+.user_code {
+    min-width: 120px;
+}
+
+#user_list .control_btn {
+    min-width: 150px;
+}
+#user_list .control_btn .edit {
+    background-color: #4386ff;
+    border-color: #4386ff;
+}
+#user_list .control_btn .edit:hover {
+    background-color: #1f6efd;
+    border-color: #1f6efd;
+}
+#user_list .control_btn .delete {
+    background-color: #b7b7b7;
+    border-color: #b7b7b7;
+}
+#user_list .control_btn .delete:hover {
+    background-color: #9c9c9c;
+    border-color: #9c9c9c;
+}

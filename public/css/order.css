@@ -1,0 +1,198 @@
+/* CSS list 4 type order */
+.scroll_table thead tr .first,
+.scroll_table tbody tr .first,
+.scroll_table tfoot tr .first {
+    width: calc( 75% - 12px );
+    float: left;
+}
+.scroll_table thead tr .second,
+.scroll_table tbody tr .second,
+.scroll_table tfoot tr .second {
+    width: 20%;
+    float: right;
+}
+.scroll_table thead tr .first {
+    vertical-align: middle;
+    text-align: center;
+}
+.scroll_table tbody {
+    padding: 0 5px;
+}
+.split2div {
+    height: 50px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 100%;
+}
+.card-header {
+    height: 45px;
+    padding: 10px 20px;
+}
+.card-body {
+    padding: 10px;
+}
+
+/* CSS in progress page */
+.search_cond {
+    padding: 10px 10px 0 10px;
+}
+.search_cond div.row {
+    padding: 5px 2px;
+}
+.search_cond .row:not(#btn_and_date) div[class^=col-md] label {
+    width: 92px;
+}
+.search_cond .row:not(#btn_and_date) div[class^=col-md] select,
+.search_cond .row:not(#btn_and_date) div[class^=col-md] span.select2,
+.search_cond .row:not(#btn_and_date) div[class^=col-md] input {
+    width: calc(100% - 92px - 4px)!important;
+    display: inline-block;
+    height: 38px;
+}
+#btn_and_date select {
+    display: inline-block;
+}
+#btn_and_date .btn_search {
+    text-align: right;
+}
+#btn_and_date .select_year,
+#btn_and_date .select_month,
+#btn_and_date .select_day {
+    display: inline-block;
+    padding: 5px;
+}
+.date_select .select_year {
+    width: 100px;
+}
+.date_select .select_month {
+    width: 50px;
+}
+.date_select .select_day {
+    width: 50px;
+}
+.condition_advance {
+    padding: 5px 20px;
+}
+.condition_advance select.sort_by {
+    width: auto;
+    margin-left: 5px;
+}
+.condition_advance select.limit_get {
+    width: 50px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.condition_advance div[class^=col-md] * {
+    display: inline-block;
+}
+.condition_advance .limit_paginate_info {
+    text-align: right;
+}
+#order_list th {
+    min-width: 150px;
+}
+#order_list thead tr {
+    background-color: #a9a9a9;
+}
+
+/* CSS detail page */
+.order_detail thead tr {
+    background-color: #a9a9a9;
+}
+.order_detail .general tr, 
+.order_detail .general tr td {
+    border: 0;
+}
+.order_detail .general tr td:first-child {
+    font-weight: bold;
+    text-align: right;
+    width: 150px;
+}
+.order_detail .general tr td input,
+.order_detail .general tr td select {
+    width: 300px;
+}
+.order_detail .date_of_service {
+    min-width: 140px;
+}
+.order_detail .product_info {
+    min-width: 350px;
+}
+.order_detail .num_people,
+.order_detail .duration,
+.order_detail .cost {
+    min-width: 90px;
+}
+.order_detail .option {
+    min-width: 250px;
+}
+
+.order_detail .departure,
+.order_detail .arrival {
+    min-width: 120px;
+}
+
+.order_detail .detail th,
+.order_detail .detail td {
+    border: 1px solid #dee2e6;
+    text-align: center;
+}
+.order_detail thead th {
+    vertical-align: middle;
+}
+
+/* Button end page */
+.center-button {
+    padding: 5px 5px 15px 5px;
+    text-align: center;
+}
+.center-button button,
+.center-button a {
+    width: 120px;
+}
+
+/* CSS edit page */
+.desire_time_proposal tr,
+.desire_time_proposal tr th,
+.desire_time_proposal tr td {
+    border: 0;
+}
+.desire_time_proposal tr th {
+    width: 150px;
+    text-align: center;
+}
+.desire_time_proposal .proposal {
+    text-align: center;
+}
+.desire_time_proposal .proposal img {
+    width: 200px;
+    height: 165px;
+    margin-bottom: 10px;
+}
+.desire_time_proposal .proposal p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.desire_time_proposal p.candidate input,
+.desire_time_proposal p.date_start input,
+.desire_time_proposal p.date_end input,
+.desire_time_proposal p.departure_time input,
+.desire_time_proposal p.arrive_time input {
+    width: 100px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 3px;
+    margin: 0 auto;
+}
+.desire_time_proposal p.candidate input {
+    width: 120px;
+}
+.desire_time_proposal p.candidate {
+    margin-bottom: 10px;
+}
+.proposal .valid_time {
+    background-color: #bfa;
+}
+.proposal .invalid_time {
+    background-color: #fba;
+}

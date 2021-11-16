@@ -1,0 +1,36 @@
+.cke_button__buttontext1_label,
+.cke_button__buttontext2_label,
+.cke_button__buttontext3_label,
+.cke_button__buttontext4_label,
+.cke_button__buttontext5_label,
+.cke_button__buttontext6_label,
+.cke_button__buttontext7_label,
+.cke_button__buttontext8_label,
+.cke_button__buttontext9_label,
+.cke_button__buttontext10_label,
+.cke_button__buttontext11_label,
+.cke_button__buttontext12_label,
+.cke_button__buttontext13_label,
+.cke_button__buttontext14_label,
+.cke_button__buttontext15_label
+ {
+    display: inline !important
+}
+.cke_button__buttontext1_icon,
+.cke_button__buttontext2_icon,
+.cke_button__buttontext3_icon,
+.cke_button__buttontext4_icon,
+.cke_button__buttontext5_icon,
+.cke_button__buttontext6_icon,
+.cke_button__buttontext7_icon,
+.cke_button__buttontext8_icon,
+.cke_button__buttontext9_icon,
+.cke_button__buttontext10_icon,
+.cke_button__buttontext11_icon,
+.cke_button__buttontext12_icon,
+.cke_button__buttontext13_icon,
+.cke_button__buttontext14_icon,
+.cke_button__buttontext15_icon
+{
+    display: none !important
+}

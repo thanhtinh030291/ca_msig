@@ -1,0 +1,18 @@
+.condition_advance {
+    padding: 5px 20px;
+}
+.condition_advance select.sort_by {
+    width: 100px;
+    margin-left: 5px;
+}
+.condition_advance select.limit_get {
+    width: 50px;
+    margin-left: 5px;
+    padding: 5px;
+}
+.condition_advance div[class^=col-md] * {
+    display: inline-block;
+}
+.condition_advance div[class^=col-md]:last-child {
+    text-align: right;
+}

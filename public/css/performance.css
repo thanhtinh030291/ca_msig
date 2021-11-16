@@ -1,0 +1,177 @@
+/* Index */
+#performance_list thead th {
+    text-align: center;
+}
+.card-header .row {
+    margin-bottom: 10px;
+}
+#index .row div[class^="col-md"] {
+    vertical-align: middle;
+    margin: auto 0;
+}
+#index .row div.first label {
+    width: 110px;
+}
+#index .row div input,
+#index .row div span.select2,
+#index .row div select {
+    display: inline-block;
+    width: calc(100% - 110px - 10px);
+}
+#performent_form #index .row.condition_advance div[class^="col-md"] select.sort_by,
+#performent_form #index .row.condition_advance div[class^="col-md"] select.limit_get {
+    width: 100px;
+}
+#index .row .row.date {
+    margin: 0;
+    padding: 0;
+}
+#index .row .client_id label,
+#index .row .date label {
+    width: 100px;
+}
+#index .row .client_id select,
+#index .row .client_id span.select2,
+#index .row .date select {
+    width: calc(100% - 100px - 10px) !important;
+}
+
+.row .control-btn a.btn,
+.row .control-btn button {
+    width: 150px;
+}
+
+/*index table display info*/
+.row .card .control_btn {
+    min-width: 150px;
+}
+.row .card .control_btn .edit {
+    background-color: #4386ff;
+    border-color: #4386ff;
+}
+.row .card .control_btn .edit:hover {
+    background-color: #1f6efd;
+    border-color: #1f6efd;
+}
+.row .card .control_btn .delete {
+    background-color: #b7b7b7;
+    border-color: #b7b7b7;
+}
+.row .card .control_btn .delete:hover {
+    background-color: #9c9c9c;
+    border-color: #9c9c9c;
+}
+
+.row .card table .order_item_code {
+    min-width: 190px;
+}
+.row .card table .type {
+    min-width: 100px;
+}
+.row .card table .year,
+.row .card table .month {
+    min-width: 90px;
+}
+.row .card table .product_name {
+    min-width: 150px;
+}
+.row .card table .price {
+    min-width: 200px;
+}
+.row .card table .percent {
+    min-width: 150px;
+}
+.row .card table .name,
+.row .card table .country {
+    min-width: 250px;
+}
+.row .card table .date {
+    min-width: 110px;
+}
+#performance_list tbody tr td {
+    text-align: center;
+}
+
+/* performance */
+i.fa-minus, i.fa-plus, i.fa-arrow-right {
+    cursor: pointer;
+}
+
+#chart .first {
+    width: 120px;
+}
+
+#chart p {
+    margin: 0;
+    text-align: center;
+}
+
+.summary .update {
+    margin: auto;
+}
+
+.summary .update i.fa-arrow-right:before {
+    content: "更新 \f061";
+    margin: auto;
+}
+
+.summary .update i.fa-arrow-right {
+    background-color: #ff391f;
+    width: auto;
+    border: 1px solid transparent;
+    padding: 0.15rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    height: 30px;
+}
+.summary .update i.fa-arrow-right:hover {
+    background-color: #ff391f;
+    border-color: #ff391f;
+    color: #ffffff;
+}
+
+.summary .export_csv {
+    border: 0;
+    text-align: right;
+}
+
+.summary #margin_update {
+    display: block;
+    margin-bottom: 0;
+}
+
+
+/* new performance item */
+.new_data {
+    background-color: #fff;
+}
+
+.new_data th,
+.new_data td {
+    vertical-align: middle;
+}
+
+.new_data th {
+    width: 160px;
+}
+
+.new_data td.require {
+    width: 5px;
+}
+
+.new_data td input,
+.new_data td select {
+    width: 300px;
+}
+
+.btn-block {
+    margin-top: 10px;
+}
+.btn-block .btn {
+    width: 150px;
+    margin-right: 10px;
+} 
+.center-block {
+    text-align: center;
+}

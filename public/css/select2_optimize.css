@@ -1,0 +1,17 @@
+.select2-container .select2-selection--single {
+    height: 100%;
+    padding: .375rem .75rem;
+    border: 1px solid #ced4da;
+    width: 100% !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 94%;
+}
+span.select2 {
+    width: 100% !important;
+    height: 38px;
+}
+/*first option*/
+.select2-results__options .select2-results__option:first-child {
+    height: 33px;
+}

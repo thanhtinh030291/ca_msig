@@ -1,0 +1,100 @@
+#pickup_tbl tr td,
+#getoff_tbl tr td,
+#season_price_tbl tr td,
+#expire_date_tbl tr td,
+#start_date_tbl tr td {
+    position: relative;
+}
+#pickup_tbl tr td *,
+#getoff_tbl tr td *,
+#season_price_tbl tr td *,
+#expire_date_tbl tr td *,
+#start_date_tbl tr td * {
+    box-sizing: border-box;
+}
+.delete_row_btn {
+    outline: none;
+    position: absolute;
+    top: 28%;
+    border: none;
+    background: #dc3d31;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+.delete_row_btn:hover {
+    opacity: 1;
+}
+#pickup_tbl input,
+#getoff_tbl input,
+#season_price_tbl input, 
+#expire_date_tbl input,
+#start_date_tbl input {
+    display: inline-block;
+    width: 95%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+#pickup_tbl th:first-child,
+#getoff_tbl th:first-child {
+    width: 70%;
+}
+@media(max-width: 1600px) {
+    #pickup_tbl input, #getoff_tbl input {
+        width: 85%;
+    }
+}
+/* for let text-require '*' in same line */
+#season_price_tbl .date {
+    width: calc(60% / 2 );
+}
+#season_price_tbl .int {
+    width: calc(40% / 2);
+}
+#season_price_tbl span.text-danger {
+    width: 7px;
+}
+#pickup_tbl .have_require,
+#getoff_tbl .have_require,
+#start_date_tbl input.have_require,
+#expire_date_tbl input.have_require{
+    padding: 5px!important;
+    width: calc(100% - 19px );
+}
+#season_price_tbl input.have_require {
+    padding: 5px!important;
+    width: calc(82% - 19px );
+}
+
+#pickup_tbl tr td input.thours,
+#pickup_tbl tr td input.tminutes,
+#getoff_tbl tr td input.thours,
+#getoff_tbl tr td input.tminutes{
+    width: calc(80% / 2 );
+}
+.table_add_new
+{
+    margin-bottom: 5px;
+}
+.table_add_new tr *
+{
+    padding-bottom: 5px;
+    margin-left: 7px;
+    padding-right: 10px;
+}
+.input-group>.custom-select:not(:last-child), 
+.input-group>.form-control:not(:last-child), 
+.input-group>.form-control:not(:first-child){
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}

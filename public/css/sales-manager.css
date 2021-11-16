@@ -1,0 +1,71 @@
+div.tabcontent {
+    padding: 0px ;
+}
+.row div.col-sales {
+    border-right: 1px solid rgba(0,0,0,.075);
+    border-bottom: 1px solid rgba(0,0,0,.075);
+}
+.sales-images img {
+    height: 230px;
+    width: 80%;
+}
+.row div.sale-content {
+    background-color: #ddd; 
+    border: 0px;
+    text-align: center;
+}
+.sales-title {
+    text-align:left;
+    height: 20px;
+    padding: 10px 0px 50px 5%;
+    font-size: 30px;
+    color: #757474;
+}
+.row div.col-sales .form-group {
+    margin-top: 5px !important; 
+}
+
+.col-form-label {
+    font-size: 14px;
+}
+.salesDone_btn{
+    font-size: 20px;
+    width: 150px;
+    font-weight: bold;
+}
+.salesDone{
+    text-align: center;
+    padding: 50px 0px 16%;
+}
+.salesDone_btn{
+    font-size: 20px;
+    width: 150px;
+    font-weight: bold;
+}
+.salesDone{
+    text-align: center;
+    padding: 50px 0px 16%;
+}
+#detail_group{
+    padding:20px;
+}
+.sales-body {
+    margin: 5px 5% 5% 5%;
+}
+
+.select2-container .select2-selection--single {
+    height: 100%;
+    padding: .375rem .75rem;
+    border: 1px solid #ced4da;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 94%;
+}
+span.select2 {
+    width: calc(100%) !important;
+    height: 38px;
+}
+/*first option*/
+.select2-results__options .select2-results__option:first-child {
+    height: 33px;
+}

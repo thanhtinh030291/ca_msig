@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+#basic, #addr, #bank {
+    padding: 10px 30px 0px 10px;
+}
+#basic tr td:last-child,
+#addr tr td:last-child,
+#bank tr td:last-child {
+    padding-left: 5px;
+}
+#basic tr td.require {
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+#basic table th.multi-line,
+#addr table th.multi-line,
+#bank table th.multi-line {
+    text-align: right;
+}
+#basic table th,
+#addr table th,
+#bank table th {
+    text-align: right;
+}
+#basic table th {
+    width: 150px;
+}
+#addr table th,
+#bank table th {
+    width: 12%;
+}
+#basic table tr th,
+#basic table tr td {
+    vertical-align: middle;
+}
+th.multi-line label {
+    text-align: center;
+}
+#basic tr.remark th {
+    vertical-align: top;
+}
+
+/*css for input select width*/
+#basic .final_payment_date span.select2 {
+    min-width: 90px;
+}
+#basic #code {
+    width: 150px;
+    background-color: #525252;
+    color: #000;
+}
+#basic table tr td select,
+#addr table tr td select,
+#bank table tr td select {
+    width: auto;
+}
+#basic #expire_date {
+    width: 120px;
+}
+#basic #representative_name,
+#basic #representative_role,
+#basic #person_in_charge {
+    width: 150px;
+}
+#basic #monthly_estimated_amount,
+#basic #capital,
+#basic #advance_payment_amount,
+#basic #final_payment_amount, 
+#basic span#payment_role{
+    width: 200px;
+}
+#addr #post_code {
+    width: 120px;
+}
+#addr #phone_number_1,
+#addr #phone_number_2,
+#addr #fax_number {
+    width: 200px;
+}
+#bank #bank_name {
+    width: 150px;
+}
+#bank #bank_account_number,
+#bank #bank_account_name {
+    width: 250px;
+}
+
+
+.user_update_form #addr {
+    min-width: 700px;
+}
+.user_update_form #addr table th {
+    width: 15%;
+}
+
+div.center-block {
+    padding: 5px 20px;
+    display: flex;
+    justify-content: center;
+}
+div.center-block * {
+    margin-right: 20px;
+    width: 160px;
+}
+
+div.show_user table#basic,
+div.show_user table#addr,
+div.show_user table#bank {
+    display: none;
+}
+
+.row {
+    margin: 0;
+}
+#create_btn {
+    float: right;
+}
+#control_search {
+    text-align: right;
+}
+#control_search *:last-child {
+    margin-left: 5px;
+}
+#control_search *:first-child {
+    width: 120px;
+}
+#user_list tr th {
+    text-align: center;
+    background-color: #cecece;
+}
+#user_list .company_name {
+    min-width: 360px;
+}
+
+.pagination_group {
+    float: right;
+    padding: 10px;
+}
+ul.pagination {
+    padding: 0;
+    margin: 0;
+}
+.condition_advance {
+    padding: 10px 0 !important;
+}
+.not_padding_top {
+    padding-top: 0px !important;
+}
+.not_padding_bottom {
+    padding-bottom: 0px !important;
+}
+div.card-body.search_cond {
+    padding: 20px 0;
+}
+.search_cond label {
+    width: 92px;
+}
+.search_cond div.row {
+    padding: 5px 2px;
+}
+.search_cond input,
+.search_cond div[class^=col-md] span.select2,
+.search_cond select {
+    width: calc(100% - 92px - 4px)!important;
+    display: inline-block;
+    height: 38px;
+}
