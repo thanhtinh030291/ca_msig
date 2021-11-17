@@ -18,8 +18,8 @@ return[
     'PUSHER_APP_ID' => env('PUSHER_APP_ID'),
     'PUSHER_APP_CLUSTER' => env('PUSHER_APP_CLUSTER'),
     'VAPID_PUBLIC_KEY' => env('VAPID_PUBLIC_KEY'),
-    'mount_disk_hbs' => 'bshuat_hbs_report',
-    'mount_dlvn' => "http://128.0.11.233/bshuat_hbs_report/",
+    'mount_disk_hbs' => 'msigprod_hbs_report',
+    'mount_dlvn' => "http://192.168.0.235/msigprod_hbs_report/",
     
     'attachUpload'   => '/public/attachEmail/',
     
