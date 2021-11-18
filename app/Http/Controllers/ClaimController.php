@@ -1500,7 +1500,7 @@ class ClaimController extends Controller
         $ProApvAmt = data_get($claim->hospital_request,'prov_gop_pres_amt',0) - $sumAmountReject;
         $typeGOP = typeGop(data_get($claim->hospital_request,'type_gop',0));
         $noteGOP = data_get($claim->hospital_request,'note',"");
-        $total_incur_hbs = $incurDateTo->diffInDays($incurDateFrom) == 0 ? "1 Ngày" : $incurDateTo->diffInDays($incurDateFrom) . "Ngày";
+        $total_incur_hbs = $incurDateTo->diffInDays($incurDateFrom) == 0 ? "1 " : $incurDateTo->diffInDays($incurDateFrom) . "";
         $diffIncur = data_get($claim->hospital_request,'incur_time',null) ?  data_get($claim->hospital_request,'incur_time') : $total_incur_hbs ;
         $incurDateTo = data_get($claim->hospital_request,'incur_to',null) ?  data_get($claim->hospital_request,'incur_to') : $incurDateTo->format('d/m/Y') ;
         $incurDateFrom = data_get($claim->hospital_request,'incur_from',null) ?  data_get($claim->hospital_request,'incur_from') : $incurDateFrom->format('d/m/Y') ;
