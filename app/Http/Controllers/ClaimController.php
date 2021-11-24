@@ -1062,7 +1062,7 @@ class ClaimController extends Controller
             }
         }
         
-        if(preg_match('/(Thư thông báo bồi thường)/', $export_letter->letter_template->name , $matchess)){
+        if(preg_match('/(Thư thông báo bồi thường)|(Thư Phúc Đáp)/', $export_letter->letter_template->name , $matchess)){
             
             $diff = $HBS_CL_CLAIM->SumPresAmt - $HBS_CL_CLAIM->SumAppAmt ;
             
