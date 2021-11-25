@@ -1556,6 +1556,8 @@ class ClaimController extends Controller
         $content = str_replace('[[$PoNo]]', $police->pocy_no, $content);
         $content = str_replace('[[$EffDate]]', Carbon::parse($police->eff_date)->format('d/m/Y'), $content);
         $content = str_replace('[[$now]]', datepayment(), $content);
+        $head_sign = "<span><img src='".asset('images/chukymoc.jpg')."' alt='face'></img></span>";
+        $content = str_replace('[[$HEADSIGN]]', $head_sign , $content);
         $htm_infoReject = "";
         $htm_infoReject_en = "";
         if ($deniedAmt != 0 || $CSRRemark) {
