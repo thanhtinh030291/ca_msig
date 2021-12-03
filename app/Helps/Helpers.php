@@ -182,7 +182,7 @@ function sendEmailProvider($user_send, $to_email , $to_name, $subject, $data , $
                 ->to( $to_email )
                 ->cc([$user_send->email, $app_email])
                 ->replyTo( $email_repply , $email_name)
-                ->replyTo( 'cskh.bsh@pacificcross.com.vn' , 'CSKH')
+                ->replyTo( 'cskh.msig@pacificcross.com.vn' , 'CSKH')
                 ->attachData(base64_decode($data['attachment']['base64']), $data['attachment']['filename'], ['mime' => $data['attachment']['filetype']])
                 ->subject($subject ."- #".config('constants.company')."#");
         }
@@ -866,4 +866,66 @@ function renderMessageInvoice($id){
         $str .= "\n + Vui lòng gửi hóa đơn VAT đã chuyển đổi bản gốc số '$claim->original_invoice_no_not_ready' về địa chỉ  Lầu 16, Tòa nhà Royal -  tháp B,  235 Nguyễn Văn Cừ, Quận  1, HCM, Việt Nam.";
     }
     return $str;
+}
+
+function getTokenSms(){
+    $headers = [
+        'Content-Type' => 'application/json',
+    ];
+    $body = [
+        'client_id' => config('constants.client_id_sms'),
+        'client_secret' => config('constants.client_secret_sms'),
+        'grant_type' => config('constants.grant_type'),
+        'scope' => 'send_brandname_otp',
+        'session_id' => '789dC48b88e54f58ece5939f14a'
+    ];
+    $setting = Setting::where('id', 1)->first();
+    if($setting === null){
+        $setting = Setting::create([]);
+    }
+    $startTime = Carbon\Carbon::parse($setting->created_token_sms_at);
+    $now = Carbon\Carbon::now();
+    $totalDuration = $startTime->diffInSeconds($now);
+    if($setting->created_token_sms_at == null || $setting->token_sms == null || $totalDuration >= 3500){
+        $client = new \GuzzleHttp\Client([
+            'headers' => $headers
+        ]);
+        $response = $client->request("POST", config('constants.api_sms').'oauth2/token' , ['form_params'=>$body]);
+        $response =  json_decode($response->getBody()->getContents());
+        $setting->token_sms = data_get($response , 'access_token');
+        $setting->created_token_sms_at = $now->toDateTimeString();
+        $setting->save();
+    }
+    return  $setting->token_sms;
+}
+
+function sendSms($phone,$sms){
+    $token = getTokenSms();
+    $pattern = '/[^0-9]+/';
+    $num  = preg_replace($pattern, "", $phone);
+    $headers = [
+        'Content-Type' => 'application/json',
+    ];
+    $body = [
+        'access_token' => $token,
+        'session_id' => '789dC48b88e54f58ece5939f14a',
+        'BrandName' => 'PACIFICROSS',
+        'scope' => 'send_brandname_otp',
+        'Phone' => $num,
+        'Message' => base64_encode($sms)
+    ];
+
+    try {
+        $client = new \GuzzleHttp\Client([
+            'headers' => $headers
+        ]);
+        $response = $client->request("POST", config('constants.api_sms').'api/push-brandname-otp' , ['form_params'=>$body]);
+        $response =  json_decode($response->getBody()->getContents());
+        return $response;
+    }catch (GuzzleHttp\Exception\ClientException $e) {
+        $response = $e->getResponse()->getBody(true);
+        $response = json_decode((string)$response);
+        return $response;
+    }
+    
 }
