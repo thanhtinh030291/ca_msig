@@ -376,8 +376,8 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
             //$banking = $HBS_CL_CLAIM->member->bank_name.', '.$HBS_CL_CLAIM->member->cl_pay_bank_branch.', '. $HBS_CL_CLAIM->member->cl_pay_bank_city;
             $banking = $HBS_CL_CLAIM->member->BankNameChange.', '.$HBS_CL_CLAIM->member->cl_pay_bank_branch.', '. $HBS_CL_CLAIM->member->cl_pay_bank_city;
             $notify = $lang == "en" ? 
-            "Within 03 days from the date of sending this notice, if we do not receive your response, we understand that you have agreed with this claim result and Pacific Cross Vietnam will settle the payment within 03 following days or within 03 days from the date of receiving full legal invoices and documents (if these invoices, documents have not submitted).": 
-            "Trong vòng 03 ngày kể từ ngày gửi thư thông báo này, nếu chúng tôi không nhận được phản hồi của Quý khách, chúng tôi hiểu rằng Quý khách đã đông ý với kết quả bồi thường này và Pacific Cross Vietnam sẽ tiến hành thanh toán bồi thường trong vòng 03 ngày tiếp theo hoặc trong vòng 03 ngày kể từ ngày nhận được đầy đủ hóa đơn, chứng từ hợp lệ (trường hợp những hóa đơn, chứng từ này chưa được bỗ sung).";
+            "Within 03 days from the date of sending this notice, if we do not receive your response, we understand that you have agreed with this claim result and Pacific Cross Viet Nam will settle the payment within 03 following days or within 03 days from the date of receiving full legal invoices and documents (if these invoices, documents have not submitted).": 
+                "Trong vòng 03 ngày kể từ ngày gửi thư thông báo này, nếu chúng tôi không nhận được phản hồi của Quý khách, chúng tôi hiểu rằng Quý khách đã đồng ý với kết quả bồi thường này và Pacific Cross Việt Nam sẽ tiến hành thanh toán bồi thường trong vòng 03 ngày tiếp theo hoặc trong vòng 03 ngày kể từ ngày nhận được đầy đủ hóa đơn, chứng từ hợp lệ (trường hợp những hóa đơn, chứng từ này chưa được bổ sung).";
             $not_show_table = false;
             break;
         case 'CL_PAYMENT_METHOD_CH':
@@ -391,8 +391,8 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
             //$banking = $HBS_CL_CLAIM->member->cash_bank_name.', '.$HBS_CL_CLAIM->member->cash_bank_branch.', '.$HBS_CL_CLAIM->member->cash_bank_city ;
             $banking = $HBS_CL_CLAIM->member->CashBankNameChange.', '.$HBS_CL_CLAIM->member->cash_bank_branch.', '.$HBS_CL_CLAIM->member->cash_bank_city ;
             $notify = $lang == "en" ? 
-            "Within 03 days from the date of sending this notice, if we do not receive your response, we understand that you have agreed with this claim result and Pacific Cross Vietnam will settle the payment within 03 following days or within 03 days from the date of receiving full legal invoices and documents (if these invoices, documents have not submitted).": 
-            "Trong vòng 03 ngày kể từ ngày gửi thư thông báo này, nếu chúng tôi không nhận được phản hồi của Quý khách, chúng tôi hiểu rằng Quý khách đã đông ý với kết quả bồi thường này và Pacific Cross Vietnam sẽ tiến hành thanh toán bồi thường trong vòng 03 ngày tiếp theo hoặc trong vòng 03 ngày kể từ ngày nhận được đầy đủ hóa đơn, chứng từ hợp lệ (trường hợp những hóa đơn, chứng từ này chưa được bỗ sung).";
+            "Within 03 days from the date of sending this notice, if we do not receive your response, we understand that you have agreed with this claim result and Pacific Cross Viet Nam will settle the payment within 03 following days or within 03 days from the date of receiving full legal invoices and documents (if these invoices, documents have not submitted).": 
+            "Trong vòng 03 ngày kể từ ngày gửi thư thông báo này, nếu chúng tôi không nhận được phản hồi của Quý khách, chúng tôi hiểu rằng Quý khách đã đồng ý với kết quả bồi thường này và Pacific Cross Việt Nam sẽ tiến hành thanh toán bồi thường trong vòng 03 ngày tiếp theo hoặc trong vòng 03 ngày kể từ ngày nhận được đầy đủ hóa đơn, chứng từ hợp lệ (trường hợp những hóa đơn, chứng từ này chưa được bổ sung).";
             $not_show_table = false;
             break;
         case 'CL_PAYMENT_METHOD_CQ':
@@ -422,7 +422,7 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
             $not_show_table = true;
             break;
     }
-    $pay_lang = $lang == "en" ? 'Pacific Cross VN will pay the above amount in the following form:' : 'Pacific Cross VN sẽ thanh toán số tiền trên theo hình thức sau:';
+    $pay_lang = $lang == "en" ? 'Pacific Cross Viet Nam will pay the above amount in the following form:' : 'Pacific Cross Việt Nam sẽ thanh toán số tiền trên theo hình thức sau:';
     $beneficiary_name = $lang == "en" ? 'Beneficiary name: ' : 'Tên người thụ hưởng: ';
     $info_bank = $lang == "en" ? 'Name and Address of the Bank: ' : 'Tên và địa chỉ Ngân hàng: ';
 
