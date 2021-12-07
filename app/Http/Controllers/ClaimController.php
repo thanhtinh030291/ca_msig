@@ -390,14 +390,14 @@ class ClaimController extends Controller
          //show btn payment 
         $can_pay_rq = false;
         $count_ap = $export_letter->where('apv_amt',$approve_amt)->where('approve',"!=",null)->count();
-        $ready_to_pay_id = \App\MANTIS_CUSTOM_FIELD::where('name','Has Payment Info')->first()->id;
+        $ready_to_pay_id = \App\MANTIS_CUSTOM_FIELD::where('name','Pay Claim')->first()->id;
         $client_approved_id = \App\MANTIS_CUSTOM_FIELD::where('name','Client Approved')->first()->id;
         $ready_to_pay = \App\MANTIS_CUSTOM_FIELD_STRING::where('bug_id',$claim->barcode)->where('field_id',$ready_to_pay_id)->where('value','Yes')->first();
         $ready_to_pay2 = \App\MANTIS_CUSTOM_FIELD_STRING::where('bug_id',$claim->barcode)->where('field_id',$client_approved_id)->where(function ($query) {
             $query->where('value','Yes')
             ->orWhere('value', 'Client Timeout');
         })->first();
-        if($count_ap > 0 && $ready_to_pay != null && $ready_to_pay2){
+        if($count_ap > 0 && $ready_to_pay != null ){
             $can_pay_rq = true;
         }
         $manager_gop_accept_pay = 'error';
@@ -408,12 +408,16 @@ class ClaimController extends Controller
             $fromEmail = $claim->inbox_email ? $claim->inbox_email->from . "," . implode(",", $claim->inbox_email->to) : "";
         }else{
             
-            if($pocy_no == '031-KD07/21/01.1D/HD/00008'){
-                $fromEmail = $email .",cskh.bsh@pacificcross.com.vn,thaontp1@bshc.com.vn,khanhntv1@bshc.com.vn,hiennq@bshc.com.vn".",$hr_email";
-            }elseif($pocy_no == '014-KDBH08/21/01.1D/HD/00002'){
-                $fromEmail = $email .",cskh.bsh@pacificcross.com.vn,dongnv@bshc.com.vn,hoanvt@bshc.com.vn,hiennq@bshc.com.vn".",$hr_email";
-            }else {
-                $fromEmail = $email .",cskh.bsh@pacificcross.com.vn,anhnl1@bshc.com.vn,anhntk@bshc.com.vn,hiennq@bshc.com.vn".",$hr_email";
+            if($claim_type == "P"){
+                $fromEmail = $claim->inbox_email ? $claim->inbox_email->from . "," . implode(",", $claim->inbox_email->to) : "";
+            }else{
+                if($pocy_no == 'B 20098520 HPS'){
+                    $fromEmail = $email .",anh.phan@mercermarshbenefits.com,ngoc.le@mercermarshbenefits.com,hcmpc@vn.msig-asia.com,yen_lethihai@vn.msig-asia.com,msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
+                }elseif(in_array($pocy_no, ['20098171', '20097793', '20097827' ])){
+                    $fromEmail = $email .",banca@vn.msig-asia.com,quan_tranminh2@vn.msig-asia.com,hcmpc@vn.msig-asia.com,yen_lethihai@vn.msig-asia.com,msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
+                }else{
+                    $fromEmail = $email .",msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
+                }
             }
         }
         
@@ -1109,6 +1113,22 @@ class ClaimController extends Controller
                         );
                     }
                 }
+            }else{
+                
+                // $file_name_dr =  $namefile."-".time() ;
+                // Storage::cloud()->put($file_name_dr.'.pdf',  base64_decode($file_contents));
+                // $dir = '/';
+                // $recursive = false; // Có lấy file trong các thư mục con không?
+                // $contents_dr = collect(Storage::cloud()->listContents($dir, $recursive));
+                // $file_dr = $contents_dr
+                // ->where('type', '=', 'file')
+                // ->where('filename', '=', $file_name_dr)
+                
+                // ->first();
+                // $url_dr = "https://drive.google.com/file/d/". data_get($file_dr,'path');
+                // //dd($url_dr);
+                
+                // dd($url_dr);
             }
             
         } catch (Exception $e) {
@@ -2657,7 +2677,7 @@ class ClaimController extends Controller
         $email_to = explode(",", $request->email_to);
         $email_to = array_diff( $email_to, ['admin@pacificcross.com.vn'] );
         
-        sendEmailProvider($user, $email_to, 'provider', $subject, $data,$template,'bshclaims@pacificcross.com.vn');
+        sendEmailProvider($user, $email_to, 'provider', $subject, $data,$template,'msigclaims@pacificcross.com.vn');
         return redirect('/admin/claim/'.$claim_id)->with('status', 'Đã gửi thư cho Custommer thành công');
     }
 
