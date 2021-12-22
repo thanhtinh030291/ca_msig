@@ -464,10 +464,11 @@ function IOPDiag($HBS_CL_CLAIM, $claim_id , $lang = null){
             $from_date = Carbon\Carbon::parse($value->incur_date_from)->format('d/m/Y');
             $to_date = Carbon\Carbon::parse($value->incur_date_to)->format('d/m/Y');
             $IOPDiag[$key]['date'] = "$from_date - $to_date";
-            $IOPDiag[$key]['diagnosis'] = ($value->RT_DIAGNOSIS->diag_desc_vn == null || $lang = 'en' )  ?  $value->RT_DIAGNOSIS->diag_desc : $value->RT_DIAGNOSIS->diag_desc_vn ;
+            $IOPDiag[$key]['diagnosis'] = ($value->RT_DIAGNOSIS->diag_desc_vn == null || $lang == 'en' )  ?  $value->RT_DIAGNOSIS->diag_desc : $value->RT_DIAGNOSIS->diag_desc_vn ;
             $IOPDiag[$key]['place'] = $value->prov_name;
         }
     $IOPDiag = collect( $IOPDiag)->groupBy('place');
+    
     foreach ($IOPDiag as $key => $value) {
         if($lang == null || $lang == 'vn'){
             $IOPDiag_f[] = "Ngày điều trị: ".$value->unique('date')->implode('date' , "; " )."<br>".
