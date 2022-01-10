@@ -426,31 +426,31 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
     $beneficiary_name = $lang == "en" ? 'Beneficiary name: ' : 'Tên người thụ hưởng: ';
     $info_bank = $lang == "en" ? 'Name and Address of the Bank: ' : 'Tên và địa chỉ Ngân hàng: ';
 
-    $payMethod =    '<p><span style="font-family: arial, helvetica, sans-serif; font-size: 12pt;">'.$pay_lang.'</span></p>
+    $payMethod =    '<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">'.$pay_lang.'</span></p>
                     <table style=" border: 1px solid black; border-collapse: collapse;">
                         <tbody>
                         <tr>
-                            <td style="border: 1px solid black; width: 350px; font-family: arial, helvetica, sans-serif ; font-size: 12pt">
+                            <td style="border: 1px solid black; width: 350px; font-family: arial, helvetica, sans-serif ; font-size: 11pt">
                                 <p>'.$beneficiary_name.$name_reciever.'</p>
                             </td>
-                            <td style="border: 1px solid black; width: 350px; font-family: arial, helvetica, sans-serif ; font-size: 12pt">
+                            <td style="border: 1px solid black; width: 350px; font-family: arial, helvetica, sans-serif ; font-size: 11pt">
                                 <p>'.$info_reciever.'</p>
                             </td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid black; font-family: arial, helvetica, sans-serif ; font-size: 12pt" colspan="2">
+                            <td style="border: 1px solid black; font-family: arial, helvetica, sans-serif ; font-size: 11pt" colspan="2">
                                 <p>'.$info_bank.$banking.'</p>
                             </td>
                         </tr>
                         <tr>
-                            <td style="border: 1px solid black; font-family: arial, helvetica, sans-serif ; font-size: 12pt" colspan="2">
+                            <td style="border: 1px solid black; font-family: arial, helvetica, sans-serif ; font-size: 11pt" colspan="2">
                                 <p>'.$notify.'</p>
                             </td>
                         </tr>
                     </tbody>
                     </table>';
     if($not_show_table){
-        $payMethod = '<span style=" font-family: arial, helvetica, sans-serif ; font-size: 12pt;">'.$pay_lang.'<strong>'.$notify.'</strong></span>';
+        $payMethod = '<span style=" font-family: arial, helvetica, sans-serif ; font-size: 11pt;">'.$pay_lang.'<strong>'.$notify.'</strong></span>';
     }
     
     return $payMethod;
@@ -590,17 +590,17 @@ function CSRRemark_TermRemark($claim){
         
         switch ($key) {
             case '12':
-                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 12pt'>Quý khách vui lòng tham khảo Điều 12_ Các loại trừ trách nhiệm bảo hiểm:</span></p>
-                <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 12pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được Fubon chi trả theo quy tắc này, bao gồm:</p>
+                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 11pt'>Quý khách vui lòng tham khảo Điều 12_ Các loại trừ trách nhiệm bảo hiểm:</span></p>
+                <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 11pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được Fubon chi trả theo quy tắc này, bao gồm:</p>
                 ";
                 break;
             case '16':
-                    $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 12pt'>Quý khách vui lòng tham khảo Điều 16_ Các giới hạn và loại trừ:</span></p>
-                    <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 12pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được chi trả theo hợp đồng này, bao gồm:</p>
+                    $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 11pt'>Quý khách vui lòng tham khảo Điều 16_ Các giới hạn và loại trừ:</span></p>
+                    <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 11pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được chi trả theo hợp đồng này, bao gồm:</p>
                     ";
                     break;
             default:
-                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 12pt'>Quý khách vui lòng tham khảo các định nghĩa của Quy tắc và Điều khoản bảo hiểm Chăm sóc sức khỏe:</span></p>";
+                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 11pt'>Quý khách vui lòng tham khảo các định nghĩa của Quy tắc và Điều khoản bảo hiểm Chăm sóc sức khỏe:</span></p>";
                 break;
         }
         $collect_value = collect($value)->sortBy('num');
