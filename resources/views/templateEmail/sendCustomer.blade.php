@@ -15,13 +15,13 @@
                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                   <tr>
                     <td>
-                      <p>Kính Gửi Quý khách: {{$data['HBS_CL_CLAIM']->MemberNameCap}}</p>
+                      <p>Kính gửi Quý khách: {{$data['HBS_CL_CLAIM']->MemberNameCap}}</p>
                       <p>Chúng tôi xin gửi đến Quý khách: "{{$data['name_lette']}}" . </p>
                       <p>Quý khách vui lòng xem thông tin chi tiết ở tệp đính kèm. </p>
-                      <p>thanks.</p>
+                      <p>Xin cảm ơn.</p>
 
-                      <p>Xin đừng trả lời trực tiếp email này. Nếu bạn có bất kỳ câu hỏi hoặc nhận xét nào về email này, vui lòng liên hệ với chúng tôi theo địa chỉ: <span style="color:blue">cskh.msig@pacificcross.com.vn</span><p>
-                      <p> Thanks & Best Regards,</p>
+                      <p>Xin đừng trả lời trực tiếp email này. Nếu Quý khách có bất kỳ câu hỏi hoặc nhận xét nào về email này, vui lòng liên hệ với chúng tôi theo địa chỉ: <span style="color:blue">cskh.msig@pacificcross.com.vn</span><p>
+                      <p> Trân trọng,</p>
                     </td>
                   </tr>
                 </table>
