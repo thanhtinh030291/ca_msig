@@ -18,8 +18,9 @@ class HBS_CL_CLAIM extends  BaseModelDB2
     public function getHistoryClaimCurrentYearCurrentAttribute(){
         $fisrtClLine = $this->HBS_CL_LINE->first();
         $year = \Carbon\Carbon::parse($fisrtClLine->incur_date_from)->format("Y");
+
         $memb_oid = $this->member->memb_oid;
-        $claim_oids = HBS_CL_LINE::whereYear('incur_date_from','=',$year)->where('clam_oid',"!=",$this->clam_oid)->where('memb_oid',$memb_oid)->pluck('clam_oid')->unique()->toArray();
+        $claim_oids = HBS_CL_LINE::whereYear('incur_date_from','>=',$year-1)->whereYear('incur_date_from','<=',$year+1)->where('clam_oid',"!=",$this->clam_oid)->where('memb_oid',$memb_oid)->pluck('clam_oid')->unique()->toArray();
         return HBS_CL_CLAIM::whereIn('clam_oid',$claim_oids)->get();
     }
     public function getMemberAttribute()
