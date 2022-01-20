@@ -397,9 +397,9 @@ class ClaimController extends Controller
             $query->where('value','Yes')
             ->orWhere('value', 'Client Timeout');
         })->first();
-        if($count_ap > 0 && $ready_to_pay != null ){
+        //if($count_ap > 0 && $ready_to_pay != null ){
             $can_pay_rq = true;
-        }
+        //}
         $manager_gop_accept_pay = 'error';
         $hospital_request = $claim->hospital_request;
         $list_diagnosis = $claim->hospital_request ? collect($claim->hospital_request->diagnosis)->pluck('text', 'id') : [];
