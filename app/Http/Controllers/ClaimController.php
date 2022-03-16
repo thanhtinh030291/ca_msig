@@ -2974,4 +2974,26 @@ class ClaimController extends Controller
         
         return redirect('/admin/claim/'.$id)->with('status', __('message.update_claim'));
     }
+
+    public function claimExport(Request $request){
+        $itemPerPage = Config::get('constants.paginator.itemPerPage');
+        $admin_list = User::getListIncharge();
+
+        $finder = [
+            
+            'created_at_from' => $request->created_at_from,
+            'created_at_to' => $request->created_at_to,
+        ];
+        if($request->export =='yes'){
+            return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\ClaimExport($request->created_at_from , $request->created_at_to),'Claim('.$request->created_at_from." To ". $request->created_at_to . ').xlsx');
+
+        }
+        if ($request->created_at_from != null) {
+            $datas = Claim::where('created_at', ">=", $request->created_at_from . " 00:00:00")->where('created_at', "<=", $request->created_at_to. " 23:59:59");
+            $datas = $datas->paginate($itemPerPage);
+        }else{
+            $datas = collect([]);
+        }
+        return view('claimManagement.export', compact('finder', 'datas', 'admin_list'));
+    }
 }

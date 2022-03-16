@@ -54,6 +54,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/claim/update_invoice/{id}', 'ClaimController@update_invoice')->name('claim.update_invoice');
         Route::post('/claim/sendNoticationMobile/{id}', 'ClaimController@sendNoticationMobile')->name('claim.sendNoticationMobile');
         Route::post('/claim/sendMailCustomer', 'ClaimController@sendMailCustomer')->name('claim.sendMailCustomer');
+        Route::get('/claimExport', 'ClaimController@claimExport')->name('claim.claimExport');
         
         Route::get('/claim/barcode/{barcode}', 'ClaimController@barcode_link');
 
