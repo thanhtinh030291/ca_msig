@@ -179,11 +179,10 @@ function sendEmailProvider($user_send, $to_email , $to_name, $subject, $data , $
             $email_repply = $reply == null ? $user_send->email : $reply;
             $email_name = $reply == null ? $user_send->name : "Claim BSH";
             foreach ($bcc as $key => $value) {
-                $mail->bcc($value,$value);
+                $mail->bcc($value, $value);
             }
             $mail
                 ->to( $to_email )
-                ->bcc([$user_send->email, $app_email])
                 ->replyTo( $email_repply , $email_name)
                 ->replyTo( 'cskh.msig@pacificcross.com.vn' , 'CSKH')
                 ->attachData(base64_decode($data['attachment']['base64']), $data['attachment']['filename'], ['mime' => $data['attachment']['filetype']])
