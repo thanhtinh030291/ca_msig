@@ -404,28 +404,27 @@ class ClaimController extends Controller
         $hospital_request = $claim->hospital_request;
         $list_diagnosis = $claim->hospital_request ? collect($claim->hospital_request->diagnosis)->pluck('text', 'id') : [];
         $selected_diagnosis = $claim->hospital_request ? collect($claim->hospital_request->diagnosis)->pluck('id') : null;
+        
         if($claim_type == "P"){
             $fromEmail = $claim->inbox_email ? $claim->inbox_email->from . "," . implode(",", $claim->inbox_email->to) : "";
+            $bcc = "";
         }else{
-            
-            if($claim_type == "P"){
-                $fromEmail = $claim->inbox_email ? $claim->inbox_email->from . "," . implode(",", $claim->inbox_email->to) : "";
-            }else{
-                if($pocy_no == 'B 20098520 HPS'){
-                    $fromEmail = $email .",anh.phan@mercermarshbenefits.com,ngoc.le@mercermarshbenefits.com,hcmpc@vn.msig-asia.com,yen_lethihai@vn.msig-asia.com,msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
-                }elseif(in_array($pocy_no, ['20098171', '20097793', '20097827' ])){
-                    $fromEmail = $email .",banca@vn.msig-asia.com,quan_tranminh2@vn.msig-asia.com,hcmpc@vn.msig-asia.com,yen_lethihai@vn.msig-asia.com,msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
-                }else{
-                    $fromEmail = $email .",msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
-                }
+            //get email send custommers
+            $PocyManagement = \App\PocyManagement::where('pocy_ref_no',$pocy_no)->first();
+            if($PocyManagement != null){
+                $fromEmail = $email ;
+                $bcc = $PocyManagement->email.",$hr_email";
+            }else {
+                $fromEmail = $email ;
+                $bcc = "msigclaims@pacificcross.com.vn,cskh.msig@pacificcross.com.vn".",$hr_email";
             }
         }
-        
+                
         $reject_code = collect($claim->RejectCode)->flatten(1)->values()->all();
         $compact = compact(['data', 'dataImage', 'items', 'admin_list', 'listReasonReject', 
         'listLetterTemplate' , 'list_status_ad', 'user', 'payment_history', 'approve_amt','tranfer_amt','present_amt',
         'payment_method','pocy_no','memb_no', 'member_name', 'balance_cps', 'can_pay_rq',
-        'CsrFile','manager_gop_accept_pay','hospital_request', 'list_diagnosis', 'selected_diagnosis', 'fromEmail','reject_code','IS_FREEZED','adminFee','inv_nos','btn_notication','renderMessageInvoice'
+        'CsrFile','manager_gop_accept_pay','hospital_request', 'list_diagnosis', 'selected_diagnosis', 'fromEmail','bcc','reject_code','IS_FREEZED','adminFee','inv_nos','btn_notication','renderMessageInvoice'
         ]);
         if ($claim_type == 'P'){
             return view('claimGOPManagement.show', $compact);
@@ -2676,8 +2675,8 @@ class ClaimController extends Controller
         $data['email_reply'] = $user->email;
         $email_to = explode(",", $request->email_to);
         $email_to = array_diff( $email_to, ['admin@pacificcross.com.vn'] );
-        
-        sendEmailProvider($user, $email_to, 'provider', $subject, $data,$template,'msigclaims@pacificcross.com.vn');
+        $bcc = explode(",", $request->bcc);
+        sendEmailProvider($user, $email_to, 'provider', $subject, $data,$template,'msigclaims@pacificcross.com.vn',$bcc);
         return redirect('/admin/claim/'.$claim_id)->with('status', 'Đã gửi thư cho Custommer thành công');
     }
 

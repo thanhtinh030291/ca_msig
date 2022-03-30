@@ -2,6 +2,7 @@
 @section('title', 'Policy Management')
 @section('stylesheets')
 <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+<link href="{{ asset('css/tagsinput.css?vision=') .$vision }}" media="all" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('content')
@@ -17,8 +18,12 @@
             <button type="submit" class="btn btnt btn-danger center-block"> {{__('message.save')}}</button>
         </div>
         <div class="form-group ">
-            {{ Form::label('_list_provider[]', __('message.provider'), ['class' => 'col-form-label text-center']) }}
+            {{ Form::label('_list_provider[]', 'Provider Not GOP', ['class' => 'col-form-label text-center']) }}
             {{ Form::select('_list_provider[]', $list_provider,  empty($data->providers) ? null : explode(",",$data->providers) , ['id'=>'list_provider','class' => 'select2 form-control' ,'multiple']) }}
+        </div>
+        <div class="form-group ">
+            {{ Form::label('Emails', 'Emails', ['class' => 'col-form-label text-center']) }}
+            {{ Form::text('email', $data->email, [ 'class' => 'form-control','placeholder' =>'Email',  'data-role' => 'tagsinput']) }}<br/>
         </div>
     </div>
     <div class="card-footer">
@@ -30,6 +35,7 @@
 
 @section('scripts')
 <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/tagsinput.js?vision=') .$vision }}"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {

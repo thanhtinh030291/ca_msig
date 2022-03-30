@@ -54,19 +54,22 @@ class PocyManagementController extends Controller
         $company = $request->company;
         $validator = Validator::make($request->all(), [
             'pocy_ref_no' => [
-                'required'
-                
+                'required',
+                'unique:pocy_management'
             ]
             
         ]);
         
         if ($validator->fails()) {
             $request->session()->flash('errorStatus', implode('<br />',$validator->errors()->all())); 
-            return redirect('/admin/pocymanagement')->withInput();   
+            return redirect('/admin/pocy')->withInput();   
         }
         
         if ( ! empty($request->_list_provider)) {
             $data_n['providers'] = implode(',', $request->_list_provider);
+        }
+        if ( ! empty($request->email)) {
+            $data_n['email'] = $request->email;
         }
         
         PocyManagement::create($data_n);

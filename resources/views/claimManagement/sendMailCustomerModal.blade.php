@@ -13,7 +13,8 @@
                 {{ Form::hidden('claim_id', $data->id ,['class' => 'claim_id']) }}
                 {{ Form::label('email_to', 'To Email', ['class' => 'labelas mt-1']) }}
                 {{ Form::text('email_to', $fromEmail, array('id' => 'email_to','class' => 'tag-editor form-control ', 'required', 'data-role' => 'tagsinput')) }}<br>
-                
+                {{ Form::label('bcc', 'BCC', ['class' => 'labelas mt-1']) }}
+                {{ Form::text('bcc', $bcc, array('id' => 'bcc','class' => 'tag-editor form-control ', 'required', 'data-role' => 'tagsinput')) }}<br>
                 
                 <div class="row">
                     <div id = 'button_save' class="pull-right">
