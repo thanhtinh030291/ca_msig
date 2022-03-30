@@ -163,7 +163,7 @@ function sendEmail($user_send, $data , $template , $subject)
     return true;
 }
 
-function sendEmailProvider($user_send, $to_email , $to_name, $subject, $data , $template, $reply = null , $bcc = null)
+function sendEmailProvider($user_send, $to_email , $to_name, $subject, $data , $template, $reply = null , $bcc = [])
 {
     if (!data_get($user_send, 'email')) {
         return false;
@@ -178,9 +178,11 @@ function sendEmailProvider($user_send, $to_email , $to_name, $subject, $data , $
         ], function ($mail) use ($user_send, $to_email, $to_name, $subject, $app_name, $app_email, $data , $reply,$bcc) {
             $email_repply = $reply == null ? $user_send->email : $reply;
             $email_name = $reply == null ? $user_send->name : "Claim BSH";
+            foreach ($bcc as $key => $value) {
+                $mail->bcc($value,$value);
+            }
             $mail
                 ->to( $to_email )
-                ->bcc($bcc)
                 ->bcc([$user_send->email, $app_email])
                 ->replyTo( $email_repply , $email_name)
                 ->replyTo( 'cskh.msig@pacificcross.com.vn' , 'CSKH')
