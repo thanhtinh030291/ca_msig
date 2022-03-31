@@ -11,6 +11,7 @@ use App\User;
 use App\PaymentHistory;
 use App\FinishAndPay;
 use View;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
@@ -33,7 +34,12 @@ class Controller extends BaseController
                 $list_status = config('constants.status_mantic');
                 $time_1 = $now - (60 * 60 * 24 * 3);
                 $time_2 = $now - (60 * 60 * 24 * 10);
-                try {
+                try{
+                    $id_project_not = DB::connection('mysql_mantis')
+                    ->table('mantis_project_table')
+                    ->where('name','like','%Gen. Inquiry%')
+                    ->orWhere('name','like','%Claims (GOP)%')
+                    ->pluck('id')->toArray();
                     $MANTIS_BUG =\App\MANTIS_BUG::with('history_status')
                     ->where(function($query) use ($time_2, $list_status){
                         $query->whereHas('history_status', function($q) use($time_2){
@@ -59,6 +65,7 @@ class Controller extends BaseController
                     ->whereHas('user_hander', function($q) use($user){
                         $q->where('email', $user->email);
                     })
+                    ->whereNotIn('project_id',$id_project_not)
                     ->get();
                     $extendClaim = $MANTIS_BUG->map(function ($item, $key) use ($now, $list_status) {
                         if($item->status == array_search('inforequest',$list_status)){
@@ -77,17 +84,14 @@ class Controller extends BaseController
                                 'text' => "Quá thời gian xữ lý 3 ngày",
                                 'mantis_id' => $item->id
                             ];
-
                         }
                         
                     });
                 } catch (\Throwable $th) {
                     $extendClaim = [
-                        0 =>[
-                            'diff_date' => '00000000',
-                            'text' => "Kết nối Etalk không hoạt động",
-                            'mantis_id' => 99
-                        ]
+                        0=>['diff_date' => "999",
+                        'text' => "etlak not connect",
+                        'mantis_id' => 99]
                     ];
                 }
                 View::share('extendClaim', $extendClaim);
