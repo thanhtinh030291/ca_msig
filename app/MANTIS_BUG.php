@@ -18,4 +18,14 @@ class MANTIS_BUG extends BaseModelMantis
     {
         return $this->hasOne('App\MANTIS_BUG_TEXT', 'id', 'bug_text_id');
     }
+
+    public function history_status(){
+        return $this->hasOne('App\MANTIS_BUG_HISTORY', 'bug_id', 'id')->where('field_name','status');
+    }
+
+    public function user_hander(){
+        return $this->hasOne('App\MANTIS_USER', 'id', 'handler_id');
+    }
+
+    
 }
