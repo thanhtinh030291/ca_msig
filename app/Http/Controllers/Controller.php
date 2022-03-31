@@ -41,26 +41,28 @@ class Controller extends BaseController
                     ->orWhere('name','like','%Claims (GOP)%')
                     ->pluck('id')->toArray();
                     $MANTIS_BUG =\App\MANTIS_BUG::with('history_status')
-                    ->where(function($query) use ($time_2, $list_status){
-                        $query->whereHas('history_status', function($q) use($time_2){
-                            $q->where('date_modified', "<=", $time_2);
+                    ->where(function($query_t) use ($time_1, $time_2, $list_status){
+                        $query_t->where(function($query) use ($time_2, $list_status){
+                            $query->whereHas('history_status', function($q) use($time_2){
+                                $q->where('date_modified', "<=", $time_2);
+                            })
+                            ->where('status',array_search('inforequest',$list_status));
                         })
-                        ->where('status',array_search('inforequest',$list_status));
-                    })
                     
-                    ->orWhere(function($query) use ($time_1, $list_status){
-                        
-                        $query->whereNotIn('status',
-                                [
-                                    array_search('inforequest',$list_status),
-                                    array_search('inforeceived',$list_status),
-                                    array_search('accepted',$list_status),
-                                    array_search('partiallyaccepted',$list_status),
-                                    array_search('declined',$list_status),
-                                    array_search('closed',$list_status)
-                                ]
-                        )
-                        ->where('date_submitted',"<=",$time_1);
+                        ->orWhere(function($query) use ($time_1, $list_status){
+                            
+                            $query->whereNotIn('status',
+                                    [
+                                        array_search('inforequest',$list_status),
+                                        array_search('inforeceived',$list_status),
+                                        array_search('accepted',$list_status),
+                                        array_search('partiallyaccepted',$list_status),
+                                        array_search('declined',$list_status),
+                                        array_search('closed',$list_status)
+                                    ]
+                            )
+                            ->where('date_submitted',"<=",$time_1);
+                        });
                     })
                     ->whereHas('user_hander', function($q) use($user){
                         $q->where('email', $user->email);

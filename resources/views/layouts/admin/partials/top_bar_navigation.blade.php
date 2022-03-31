@@ -29,7 +29,7 @@
                             <div class="notification-meta">
                                 <span class="border border-danger">{{ data_get($item,'diff_date') }} Days</span>
                                 <small class="timestamp">{{ data_get($item, 'text') }}</small>
-                                <a href="{{route('claim.barcode_link',['barcode'=> data_get($item,'mantis_id')])}}">Link {{ data_get($item,'mantis_id') }}</a>
+                                <a target="_blank" href="{{config('constants.url_mantic').'view.php?id='.data_get($item,'mantis_id') }}">Link {{ data_get($item,'mantis_id') }}</a>
                             
                             </div>
                             </div>
