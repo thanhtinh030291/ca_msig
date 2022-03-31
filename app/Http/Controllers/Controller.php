@@ -84,9 +84,9 @@ class Controller extends BaseController
                 } catch (\Throwable $th) {
                     $extendClaim = [
                         0 =>[
-                            'diff_date' => 00000000,
+                            'diff_date' => '00000000',
                             'text' => "Kết nối Etalk không hoạt động",
-                            'mantis_id' => 00009999
+                            'mantis_id' => 99
                         ]
                     ];
                 }
