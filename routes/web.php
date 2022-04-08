@@ -164,6 +164,11 @@ Route::group(['prefix' => 'admin'], function () {
         
         // pocy 
         Route::resource('pocy', 'PocyManagementController');
+
+        //M-file
+        Route::resource('mfile', 'MfileController');
+        Route::post('mfile/check_all','MfileController@check_all')->middleware(['role:Admin']);
+        Route::post('mfile/update_all','MfileController@update_all')->middleware(['role:Admin']);
     });
 
 });

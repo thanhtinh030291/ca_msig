@@ -30,6 +30,10 @@
                             href="{{ url('admin/claimExport') }}"><span>Report Default</span></a>
                         </li>
                         @endhasanyrole
+                        <li class="{{ setActive('admin/mfile') }}"> 
+                            <a class="{{ setActive('admin/mfile') }}"
+                            href="{{ url('admin/mfile') }}"><span> M-file Management</span></a>
+                        </li>
                         @hasanyrole('Header|ManagerGOP|Admin|AdminClaim|view|Supper')
                         <li class="{{ setActive('admin/reportAdmins') }}"> 
                             <a class="{{ setActive('admin/reportAdmins') }}"

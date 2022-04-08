@@ -1711,6 +1711,7 @@ class ClaimController extends Controller
 
         // rang
         foreach ($DT as $key => $value) {
+            $limit = $this->getlimitDT($value);
             if($key == 0){
                 
                 $html .= '<tr>
@@ -2780,6 +2781,7 @@ class ClaimController extends Controller
         $diagnosis = $lang == 'en' ? 'Diagnosis' : 'Bệnh';
         $benefit = $lang == 'en' ? 'Benefit' : 'Quyền lợi <br />(IP/OP/DT/PA..)';
         $app_amt = $lang == 'en' ? 'Paid amount <br />(VND)' : 'Số tiền bồi thường <br />(VNĐ)';
+        $total = $lang == 'en' ? 'Total' : 'Tổng cộng';
         $html = '
         <style type="text/css">
             table { page-break-inside:auto ; font-size: 11pt; font-family: arial, helvetica, sans-serif;}
@@ -2830,7 +2832,7 @@ class ClaimController extends Controller
                         </tr>';
         }
         $html .=    '<tr>
-                        <th style="border: 1px solid #1e91e3 ;font-family: arial, helvetica, sans-serif ; font-size: 11pt" >Tổng cộng:</th>
+                        <th style="border: 1px solid #1e91e3 ;font-family: arial, helvetica, sans-serif ; font-size: 11pt" >'.$total.'</th>
                         <th colspan="4" style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 11pt; color: #1e91e3;">'.'</th>
                         <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 11pt; color: #1e91e3;">'.formatPrice($sum_app).'</th>
                     </tr>';
