@@ -39,6 +39,7 @@ class Controller extends BaseController
                     ->table('mantis_project_table')
                     ->where('name','like','%Gen. Inquiry%')
                     ->orWhere('name','like','%Claims (GOP)%')
+                    ->orWhere('name','like','%Delete%')
                     ->pluck('id')->toArray();
                     $MANTIS_BUG =\App\MANTIS_BUG::with('history_status')
                     ->where(function($query_t) use ($time_1, $time_2, $list_status){
