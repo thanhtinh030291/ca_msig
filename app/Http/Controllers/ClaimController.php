@@ -1641,7 +1641,7 @@ class ClaimController extends Controller
             thead { display:table-header-group ; font-size: 11pt; font-family: arial, helvetica, sans-serif;}
             tfoot { display:table-footer-group ; font-size: 11pt; font-family: arial, helvetica, sans-serif;}
         </style>
-                <table style=" border: 1px solid black; border-collapse: collapse;">
+                <table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
                     <thead>
                         <tr>
                             <th style="border: 1px solid black ; font-family: arial, helvetica, sans-serif ; font-size: 11pt">'.$col_benefit.'</th>
