@@ -429,7 +429,7 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
     $info_bank = $lang == "en" ? 'Name and Address of the Bank: ' : 'Tên và địa chỉ Ngân hàng: ';
 
     $payMethod =    '<p><span style="font-family: arial, helvetica, sans-serif; font-size: 11pt;">'.$pay_lang.'</span></p>
-                    <table style=" width: 50%; border: 1px solid black; border-collapse: collapse;">
+                    <table style=" width: 100%; border: 1px solid black; border-collapse: collapse;">
                         <tbody>
                         <tr>
                             <td style="border: 1px solid black; width: 350px; font-family: arial, helvetica, sans-serif ; font-size: 11pt">
