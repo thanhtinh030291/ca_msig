@@ -1537,7 +1537,7 @@ class ClaimController extends Controller
         $content = str_replace('[[$bankNameProv]]', $Provider->bank_name, $content);
         $content = str_replace('[[$bankAddressProv]]', $Provider->bank_branch, $content);
         $content = str_replace('[[$acctNoProv]]', $Provider->acct_no, $content);
-        $content = str_replace('[[$payeeProv]]', $Provider->payee, $content);
+        $content = str_replace('[[$payeeProv]]', $Provider->acct_name, $content);
         $content = str_replace('[[$ProAddress]]', implode(",",$prov_address), $content);
         $content = str_replace('[[$Diagnosis]]', $Diagnosis, $content);
         $content = str_replace('[[$incurDateTo]]',$incurDateTo, $content);
