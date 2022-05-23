@@ -87,13 +87,13 @@ class MfileController extends Controller
             'mode' => config('constants.mode_mfile'),
             'policy_holder' => [
                 "policy_holder_name" => strtoupper(Str::slug($HBS_CL_CLAIM->PolicyHolder->poho_name_1,' '))." (".$HBS_CL_CLAIM->PolicyHolder->poho_ref_no.")",
-                "policy_holder_no" =>  $HBS_CL_CLAIM->PolicyHolder->poho_ref_no,
+                "policy_holder_no" =>  !empty($HBS_CL_CLAIM->PolicyHolder->poho_ref_no) ? $HBS_CL_CLAIM->PolicyHolder->poho_ref_no : $HBS_CL_CLAIM->PolicyHolder->poho_no,
                 "policy_holder_note" =>  "PO. " . implode(" + ", $pocy_ref_nos),
 
             ],
             'member' => [
                 "member_name" => strtoupper(Str::slug($HBS_CL_CLAIM->member->mbr_last_name. " " .$HBS_CL_CLAIM->member->mbr_first_name,' ')) ." (".$HBS_CL_CLAIM->member->memb_ref_no.")",
-                "member_no" =>  $HBS_CL_CLAIM->member->memb_ref_no,
+                "member_no" =>  !empty($HBS_CL_CLAIM->member->memb_ref_no) ? $HBS_CL_CLAIM->member->memb_ref_no : $HBS_CL_CLAIM->member->mbr_no,
                 "is_terminated" => "0",
                 "member_notes"=> ""
         
