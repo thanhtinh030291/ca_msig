@@ -52,7 +52,7 @@ return[
     'link_mfile' => '192.168.0.235/mfile/public/api/',
     'account_mfile' => 'admin@pacificcross.com.vn',
     'pass_mfile' => '123456',
-    'mode_mfile' => 'bsh',
+    'mode_mfile' => 'msig',
 
     
     'token_mantic' => env("token_mantic",""),
@@ -193,5 +193,31 @@ return[
         'original_invoice' => 'Hóa đơn góc',
         'e_invoice' => 'Hóa đơn điện tử',
         'converted_invoice' => 'Hóa đơn đã chuyển đổi',
+    ],
+    'benhead' => [
+        'vis_yr' => "Ngày/Năm",
+        'vis_day' => "Lần/Mỗi Ngày",
+        'amt_vis' => "Đồng/Mỗi Lần Thăm Khám",
+        'amt_yr' => "Đồng/Năm",
+        'amt_dis_yr' => "Đồng/Mỗi Bệnh/Năm",
+        'amt_life' => "Đồng/Trọn Đời",
+        'day_dis_yr' => "Ngày/Mỗi Bệnh/Năm",
+        'amt_day' => "Đồng/Ngày",
+        'amt_dis_vis' => "Đồng/Mỗi Bệnh/Mỗi Lần",
+        'amt_dis_life' => "Đồng/Mỗi Bệnh/Trọn Đời",
+    ],
+
+    'benhead_en' => [
+        'vis_yr' => "Day/Year",
+        'vis_day' => "Time/Everyday",
+        'amt_vis' => "VND/Visit",
+        'amt_yr' => "VND/Year",
+        'amt_dis_yr' => "VND/Diagnose/Year",
+        'amt_life' => "VND/Life",
+        'day_dis_yr' => "Day/Diagnose/Year",
+        'amt_day' => "VND/Day",
+        'amt_dis_vis' => "VND/Diagnose/Time",
+        'amt_dis_life' => "VND/Diagnose/Life",
     ]
+
 ];
