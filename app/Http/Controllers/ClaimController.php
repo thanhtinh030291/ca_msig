@@ -1629,7 +1629,7 @@ class ClaimController extends Controller
         $HbsBenhead = \App\HBS_PD_BEN_HEAD::whereNotNull('BEN_HEAD')->with('PD_BEN_HEAD_LANG')->get();
 
         $col_benefit = $lang == 'en' ? 'Benefits' : 'Quyền lợi bảo hiểm';
-        $col_submitted_amount = $lang == 'en' ? 'Submitted amount<br>(in VND)' : 'Số tiền yêu cầu bồi thường <br> (bằng VNĐ)';
+        $col_submitted_amount = $lang == 'en' ? 'Submitted amount' : 'Số tiền yêu cầu bồi thường';
         $col_paid_amount = $lang == 'en' ? 'Paid amount<br>(Based on validity documents)' : 'Số tiền bồi thường<br>(Căn cứ trên chứng từ hợp lệ)';
         $col_limit = $lang == 'en' ? 'Limit' : 'Giới hạn thanh toán';
         $code_desc = $lang == 'en' ? 'code_desc' : 'code_desc_vn';
@@ -1666,14 +1666,15 @@ class ClaimController extends Controller
             }else{
                 $incur_date = Carbon::parse($incur_date_from)->format('d/m/Y') ." - " .Carbon::parse($incur_date_to)->format('d/m/Y');
             }
-            $data_ben_type[$incur_date][$valueCL_LINE->PD_BEN_HEAD->scma_oid_ben_type][] = $valueCL_LINE;
+            $data_ben_type[strtotime($incur_date_from)."#".$incur_date][$valueCL_LINE->PD_BEN_HEAD->scma_oid_ben_type][] = $valueCL_LINE;
         }
         $html .= '<tbody>';
         ksort($data_ben_type);
         foreach ($data_ben_type as $incur => $GroupDate) {
+            $incur_date = explode("#",$incur)[1];
             foreach ($GroupDate as $bentype => $GroupClaimLine) {
                 $html .= '<tr>
-                            <td colspan="4" style="border: 1px solid #1e91e3; font-weight:bold; font-family: arial, helvetica, sans-serif ; font-size: 11pt ; color: #1e91e3;">'. data_get($list_bentype->where("scma_oid", $bentype)->first() , $code_desc) . " ($incur)".'</td>
+                            <td colspan="4" style="border: 1px solid #1e91e3; font-weight:bold; font-family: arial, helvetica, sans-serif ; font-size: 11pt ; color: #1e91e3;">'. data_get($list_bentype->where("scma_oid", $bentype)->first() , $code_desc) . " ($incur_date)".'</td>
                         </tr>';
                 foreach ($GroupClaimLine as $keyIP => $value) {
                         $range_pay = "";
