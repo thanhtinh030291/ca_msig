@@ -2626,7 +2626,7 @@ class ClaimController extends Controller
             $hbs_diag = $value->HBS_CL_LINE->map(function ($c) {
                 return empty($c->RT_DIAGNOSIS->diag_desc_vn) ? $c->RT_DIAGNOSIS->diag_desc : $c->RT_DIAGNOSIS->diag_desc_vn;
             })->unique()->toArray();
-            $benhead = $value->HBS_CL_LINE->map(function ($c) {
+            $benhead = $value->HBS_CL_LINE->map(function ($c) use($list_bentype, $code_desc){
                 return data_get($list_bentype->where('scma_oid',$c->PD_BEN_HEAD->scma_oid_ben_type)->first() , $code_desc);
             })->unique()->toArray();
             $sum_app += $value->SumAppAmt;
