@@ -462,6 +462,20 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
 
 function IOPDiag($HBS_CL_CLAIM, $claim_id , $lang = null){
     $IOPDiag = [];
+    $ClaimWordSheet = App\ClaimWordSheet::where('claim_id',$claim_id)->first();
+    if (data_get($ClaimWordSheet, 'type_of_visit') != null || data_get($ClaimWordSheet, 'type_of_visit') != []) {
+        foreach (data_get($ClaimWordSheet, 'type_of_visit') as $key => $value) {
+            if($lang == null || $lang == 'vn'){
+                $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Ngày điều trị: '.  data_get($value,'from') . ( data_get($value,'to') == null ? "": " đến " . data_get($value,'to') )."<br>".
+                "Chẩn đoán: " . data_get($value,'diagnosis') ." <br>".
+                'Nơi điều trị: '.data_get($value,'prov_name')." <br></span>";
+            }else{
+                $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Treatment period:' .data_get($value,'from') . ( data_get($value,'to') == null ? "": " to " . data_get($value,'to') )."<br>".
+                "Diagnosis: " . data_get($value,'diagnosis') ." <br>".
+                'Place of treatment: '.data_get($value,'prov_name')." <br></span>";
+            }
+        }
+    }else{
         foreach ($HBS_CL_CLAIM->HBS_CL_LINE as $key => $value) {
             $from_date = Carbon\Carbon::parse($value->incur_date_from)->format('d/m/Y');
             $to_date = Carbon\Carbon::parse($value->incur_date_to)->format('d/m/Y');
@@ -469,17 +483,18 @@ function IOPDiag($HBS_CL_CLAIM, $claim_id , $lang = null){
             $IOPDiag[$key]['diagnosis'] = ($value->RT_DIAGNOSIS->diag_desc_vn == null || $lang == 'en' )  ?  $value->RT_DIAGNOSIS->diag_desc : $value->RT_DIAGNOSIS->diag_desc_vn ;
             $IOPDiag[$key]['place'] = $value->prov_name;
         }
-    $IOPDiag = collect( $IOPDiag)->groupBy('place');
+        $IOPDiag = collect( $IOPDiag)->groupBy('place');
     
-    foreach ($IOPDiag as $key => $value) {
-        if($lang == null || $lang == 'vn'){
-            $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Ngày điều trị: '.$value->unique('date')->implode('date' , "; " )."<br>".
-            "Chẩn đoán: " . $value->unique('diagnosis')->implode('diagnosis' , ", " ) ." <br>".
-            'Nơi điều trị: '.$value[0]['place']." <br></span>";
-        }else{
-            $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Treatment period:' .$value->unique('date')->implode('date' , "; " )."<br>".
-            "Diagnosis: " . $value->unique('diagnosis')->implode('diagnosis' , ", " ) ." <br>".
-            'Place of treatment: '.$value[0]['place']." <br></span>";
+        foreach ($IOPDiag as $key => $value) {
+            if($lang == null || $lang == 'vn'){
+                $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Ngày điều trị: '.$value->unique('date')->implode('date' , "; " )."<br>".
+                "Chẩn đoán: " . $value->unique('diagnosis')->implode('diagnosis' , ", " ) ." <br>".
+                'Nơi điều trị: '.$value[0]['place']." <br></span>";
+            }else{
+                $IOPDiag_f[] = '<span style="font-family: arial, helvetica, sans-serif; font-size: 10pt;"> Treatment period:' .$value->unique('date')->implode('date' , "; " )."<br>".
+                "Diagnosis: " . $value->unique('diagnosis')->implode('diagnosis' , ", " ) ." <br>".
+                'Place of treatment: '.$value[0]['place']." <br></span>";
+            }
         }
     }
     $IOPDiag = implode('<br>',  $IOPDiag_f);
