@@ -656,19 +656,9 @@ function datepayment(){
 }
 function notifi_system($content, $arrUserID = []){
     $user = App\User::findOrFail(1);
-    $options = array(
-        'cluster' => config('constants.PUSHER_APP_CLUSTER'),
-        'encrypted' => true
-    );
     $data['title'] = $user->name . ' gửi tin cho bạn';
     $data['content'] = $content;
     $data['avantar'] = config('constants.avantarStorage').'thumbnail/'.$user->avantar;
-    $pusher = new Pusher(
-        config('constants.PUSHER_APP_KEY'),
-        config('constants.PUSHER_APP_SECRET'),
-        config('constants.PUSHER_APP_ID'),
-        $options
-    );
     $data_messageSent = [];
     foreach ($arrUserID as $key => $value) {
         $data_messageSent[] = [
@@ -677,19 +667,36 @@ function notifi_system($content, $arrUserID = []){
         ];
     }
     $mesage_data = $user->messagesSent()->createMany($data_messageSent);
-    foreach ($arrUserID as $key => $value) {
-        $pusher->trigger('NotifyUser-'.$value,'Notify' ,$data);
-    }
-    
-    $user_to = User::whereIn('id', $arrUserID)->get();
-    foreach ($user_to as $key => $value) {
-        $value->notify(new PushNotification(
-            $data['title'] , 
-            $data['content'] , 
-            $data['avantar'] , 
-            url('admin/message')
-        ));
-    }
+    $user_to = User::whereIn('id', $arrUserID)->whereNotNull('device_token')->pluck('device_token');
+    $SERVER_API_KEY = config('constants.SERVER_API_KEY');
+    $data = [
+        "registration_ids" => $user_to,
+        "notification" => [
+            "title" => $data['title'],
+            "body" => strip_tags(html_entity_decode($data['content'])), 
+            "icon"=> asset("images/logo.png"),
+            
+        ],
+        "webpush"=> [
+            "fcm_options" => [
+                "link" => url('admin/message')
+            ]
+        ]
+    ];
+    $dataString = json_encode($data);
+    $headers = [
+        'Authorization: key=' . $SERVER_API_KEY,
+        'Content-Type: application/json',
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+    $response = curl_exec($ch);
     
     return redirect('/admin/home/');
 }

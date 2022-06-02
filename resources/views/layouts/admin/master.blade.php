@@ -8,7 +8,7 @@
     <meta name="description" content="{{ config('app.name') }}">
     <meta name="author" content="{{ config('app.name') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name='key-notify' content="{{ config("constants.VAPID_PUBLIC_KEY") }}">
+    <meta name='key-notify' content="{{Auth::user()->device_token}}">
     <meta name="ws_url" content="http://localhost:3000/">
     <meta name="user_id" content="{{ Auth::id() }}">
     <meta name="user_name" content="{{Auth::user()->name}}">
@@ -64,6 +64,30 @@
         <!-- Start footer -->
         @include('layouts.admin.partials.footer')
         <!-- END footer -->
+        <div id="NoticationModal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông Báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Vui lòng mở thông báo cho ứng dụng CA</p>
+                    <p>
+                        <img src="/images/notication.png"  class="article-img">
+                    </p>
+                    <p>
+                        <img src="https://images.viblo.asia/57935bb3-e6fc-4c69-b64b-565e39d0c15f.png"  class="article-img">
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- END main -->
     <script src="{{asset('js/jquery-3.3.1.slim.min.js?vision=') .$vision }}"></script>
@@ -82,13 +106,85 @@
     <script src="{{ asset('plugins/tinymce/tinymce.min.js?vision=') .$vision }}"></script>
     <!-- App js -->
     <script src="{{asset('js/pikeadmin.js?vision=') .$vision }}"></script>
-    <script src="{{asset('js/pusher.min.js?vision=') .$vision }}"></script>
     <script src="{{ asset('js/select2.min.js?vision=') .$vision }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js?vision=') .$vision }}"></script>
-    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
     <script src="{{asset('js/main.js?2')}}"></script>
-    
-    
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "{{ config("constants.apiKey") }}",
+            authDomain: "{{ config("constants.authDomain") }}",
+            databaseURL: "{{ config("constants.databaseURL") }}",
+            projectId: "{{ config("constants.projectId") }}",
+            storageBucket: "{{ config("constants.storageBucket") }}",
+            messagingSenderId: "{{ config("constants.messagingSenderId") }}",
+            appId: "{{ config("constants.appId") }}",
+            measurementId: "{{ config("constants.measurementId") }}"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const messaging = firebase.messaging();
+        $(document).ready(function(){
+            //sevice worker
+            var key_public_worker = $('meta[name="key-notify"]').attr('content');
+            console.log(key_public_worker);
+            initFirebaseMessagingRegistration();
+        });
+        function initFirebaseMessagingRegistration() {
+                messaging
+                .requestPermission()
+                .then(function () {
+                    console.log( messaging.getToken());
+                    return messaging.getToken()
+                })
+                .then(function(token,key_public_worker) {
+                    if(key_public_worker != token ){
+                        $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                        });
+                        $.ajax({
+                            url: '{{ route("save-token") }}',
+                            type: 'POST',
+                            data: {
+                                token: token
+                            },
+                            dataType: 'JSON',
+                            success: function (response) {
+                                
+                            },
+                            error: function (err) {
+                                console.log('User Chat Token Error'+ err);
+                            },
+                        });
+                    }
+                    
+                }).catch(function (err) {
+                    $("#onOffpush_checkbox").prop('checked', false);
+                    if (Notification.permission !== 'granted'){
+                        $('#NoticationModal').modal({
+                            show: true
+                        });
+                    }
+                });
+        }  
+
+        messaging.onMessage(function(payload) {
+            console.log(payload.notification);
+            pusher_res({
+                title: payload.notification.title,
+                content: payload.notification.body,
+                avantar: payload.notification.icon,
+
+            })
+            const noteTitle = payload.notification.title;
+            const noteOptions = {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+            };
+            new Notification(noteTitle, noteOptions);
+        });  
+    </script>
     
     
     <script>
@@ -106,19 +202,7 @@
         var notifications          = notificationsWrapper.find('ul.dropdown-menu');
 
 
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('{{config("constants.PUSHER_APP_KEY")}}', {
-            cluster: '{{config("constants.PUSHER_APP_CLUSTER")}}',
-            encrypted: true
-        });
-
-        // Subscribe to the channel we specified in our Laravel Event
-        var channel = pusher.subscribe('NotifyUser-{{ Auth::user()->id }}');
-        channel.bind('Notify', function(data) {
-            pusher_res(data);
-        });
+        
 
         //Bind a function to a Event (the full Laravel class)
 

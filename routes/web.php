@@ -196,3 +196,6 @@ Route::post('check_subscriptions', 'PushController@check_subscriptions');
 Route::post('subscriptions', 'PushController@update');
 Route::post('subscriptions/delete', 'PushController@destroy');
 
+Route::post('save-token', 'HomeController@saveToken')->name('save-token');
+Route::post('send-notification', 'HomeController@sendNotification')->name('send.notification');
+

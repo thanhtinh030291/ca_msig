@@ -131,33 +131,47 @@ class SendMessageController extends Controller
             'content' => 'required'
         ]);
         $user = Auth::user();
-        $options = array(
-            'cluster' => config('constants.PUSHER_APP_CLUSTER'),
-            'encrypted' => true
-        );
         $data['title'] = $user->name . ' gửi tin cho bạn';
         $data['content'] = $request->input('content');
         $data['avantar'] = config('constants.avantarStorage').'thumbnail/'.$user->avantar;
-        $pusher = new Pusher(
-            config('constants.PUSHER_APP_KEY'),
-            config('constants.PUSHER_APP_SECRET'),
-            config('constants.PUSHER_APP_ID'),
-            $options
-        );
-        
         $mesage_data = $user->messagesSent()->create([
             'user_to' => $request->input('user'),
             'message' => $request->input('content')
         ]);
         
-        $pusher->trigger('NotifyUser-'.$request->input('user'),'Notify' ,$data);
         $user_to = User::findOrfail($request->input('user'));
-        $user_to->notify(new PushNotification(
-            $data['title'] , 
-            $data['content'] , 
-            $data['avantar'] , 
-            url('admin/message').'/'.$mesage_data->id
-        ));
+        
+        $SERVER_API_KEY = config('constants.SERVER_API_KEY');
+        $data = [
+            "registration_ids" => [$user_to->device_token],
+            "notification" => [
+                "title" => $data['title'],
+                "body" => strip_tags(html_entity_decode($data['content'])),
+                "icon"=>  $data['avantar'],
+                'click_acction' => url('admin/message').'/'.$mesage_data->ids
+                
+            ],
+            "webpush"=> [
+                "fcm_options" => [
+                    "link" => url('admin/message').'/'.$mesage_data->ids
+                ]
+            ]
+        ];
+        $dataString = json_encode($data);
+        $headers = [
+            'Authorization: key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
+        $response = curl_exec($ch);
+        
         return redirect('/admin/home/');
     }
 

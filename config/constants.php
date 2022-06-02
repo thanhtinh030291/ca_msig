@@ -9,6 +9,15 @@ return[
     'sotedClaimStorage'  => '/storage/sortedClaim/',
     'company' => 'msig',
 
+    'apiKey' => "AIzaSyBTHTKBDMg9feCwbB5Mp9ceiR-kR3QFL3M",
+    'authDomain' =>  "pacific-cross.firebaseapp.com",
+    'projectId' =>  "pacific-cross",
+    'storageBucket'=> "pacific-cross.appspot.com",
+    'messagingSenderId' => "501542859634",
+    'appId' =>  "1:501542859634:web:0274ffd7f050783f55a3eb",
+    'measurementId' => "G-W2HN0MDWL3",
+    'SERVER_API_KEY' =>'AAAAdMZIs3I:APA91bHdAWUe3CpIBaylmF_Wjpti56WBHuLLSml82c77D4sGr9rcupGgXtpCBxueXki88vO1BUaNk8cuJT9g6qH91fFtSLzvxh5dZstdLzi-94dSSDyqA4jebAB8uuYXVAooIwf9Dt7Y',
+
     'avantarUpload' => '/public/avantar/',
     'avantarStorage' => '/storage/avantar/',
     'signarureUpload' => '/public/signarure/',
