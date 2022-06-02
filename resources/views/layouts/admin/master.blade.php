@@ -108,7 +108,7 @@
     <script src="{{asset('js/pikeadmin.js?vision=') .$vision }}"></script>
     <script src="{{ asset('js/select2.min.js?vision=') .$vision }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js?vision=') .$vision }}"></script>
-    <script src="{{asset('js/main.js?2')}}"></script>
+    <script src="{{ asset('js/main.js?vision=') .$vision }}"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase.js"></script>
     <script>
         var firebaseConfig = {
