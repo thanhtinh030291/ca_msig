@@ -110,7 +110,10 @@ $max = config('constants.minMaxLength.max');
                                                         <label>Change avatar</label> 
                                                         {{ Form::file('file_avantar', null, [ 'class' => 'form-control ']) }}<br/>
                                                         </div>
-                                                        
+                                                        @hasanyrole('QC|Admin')
+                                                        <label>QC On/Off Nhận hồ sơ</label> 
+                                                        {{ Form::select('qc_active', [0 => "Không" , 1 => "Có" ], $user->qc_active, [ 'class' => 'form-control ']) }}<br/>
+                                                        @endhasanyrole
                                                     </div>
                                                     </div>								
                                                     

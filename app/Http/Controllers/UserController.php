@@ -75,7 +75,20 @@ class UserController extends Controller
             \File::put(storage_path('app'.$path) . $filename, base64_decode($image));
             $user->signarure = $filename;
         }
-
+        if($request->qc_active != null){
+            
+            if($request->qc_active == 1){
+                $user->qc_active = 1;
+                $request->session()->flash('status', "Cập nhật thành công");
+            }else{
+                $count_qc = User::whereHas("roles", function($q){ $q->where("name", "QC"); })->where('qc_active',1)->count();
+                if($count_qc < 2){
+                    $request->session()->flash('errorStatus', "Không thể tắt chức năng nhận hồ sơ vì chưa có QC nhận thay thế");
+                }else{
+                    $user->qc_active = 0;
+                }             
+            }
+        }
         $user->save();
 
         return back();
