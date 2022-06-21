@@ -120,12 +120,22 @@ class HBS_CL_CLAIM extends  BaseModelDB2
     }
 
     public function getApplicantNameAttribute(){
+        return $this->policyHolder->poho_name_1;
         // $dbDate = \Carbon\Carbon::parse($this->member->dob);
         // $diffYears = \Carbon\Carbon::now()->diffInYears($dbDate);
         // if($diffYears >= 18){
-            return $this->member->mbr_last_name ." " . $this->member->mbr_first_name;
+        //     return $this->member->mbr_last_name ." " . $this->member->mbr_first_name;
         // }else{
-        //     return $this->policyHolder->poho_name_1;
+        //     if(substr($this->member->mbr_no,7,9) == "00"){
+        //         return $this->member->mbr_last_name ." " . $this->member->mbr_first_name;
+        //     }else{
+        //         $mb = HBS_MR_MEMBER::where('mbr_no', substr($this->member->mbr_no,0,7)."00")->first();
+        //         if($mb != null){
+        //             return $mb->mbr_last_name ." " . $mb->mbr_first_name;
+        //         }else{
+        //             return $this->member->mbr_last_name ." " . $this->member->mbr_first_name;
+        //         }
+        //     }
         // }
         
     }
