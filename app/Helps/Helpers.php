@@ -376,7 +376,9 @@ function payMethod($HBS_CL_CLAIM, $lang = null){
             $name_reciever = $HBS_CL_CLAIM->member->cl_pay_acct_name;
             $info_reciever = $account_no_lang.$HBS_CL_CLAIM->member->cl_pay_acct_no;
             //$banking = $HBS_CL_CLAIM->member->bank_name.', '.$HBS_CL_CLAIM->member->cl_pay_bank_branch.', '. $HBS_CL_CLAIM->member->cl_pay_bank_city;
-            $banking = $HBS_CL_CLAIM->member->BankNameChange.', '.$HBS_CL_CLAIM->member->cl_pay_bank_branch.', '. $HBS_CL_CLAIM->member->cl_pay_bank_city;
+            $banking = (!($HBS_CL_CLAIM->member->cl_pay_bank_city) && !($HBS_CL_CLAIM->member->cl_pay_bank_branch)) ? $HBS_CL_CLAIM->member->BankNameChange : $HBS_CL_CLAIM->member->BankNameChange.', ' . 
+            ($HBS_CL_CLAIM->member->cl_pay_bank_branch ? $HBS_CL_CLAIM->member->cl_pay_bank_branch .', ' : "") . 
+            $HBS_CL_CLAIM->member->cl_pay_bank_city;
             $notify = $lang == "en" ? 
             "Within 03 days from the date of sending this notice, if we do not receive your response, we understand that you have agreed with this claim result and Pacific Cross Viet Nam will settle the payment within 03 following days or within 03 days from the date of receiving full legal invoices and documents (if these invoices, documents have not submitted).": 
                 "Trong vòng 03 ngày kể từ ngày gửi thư thông báo này, nếu chúng tôi không nhận được phản hồi của Quý khách, chúng tôi hiểu rằng Quý khách đã đồng ý với kết quả bồi thường này và Pacific Cross Việt Nam sẽ tiến hành thanh toán bồi thường trong vòng 03 ngày tiếp theo hoặc trong vòng 03 ngày kể từ ngày nhận được đầy đủ hóa đơn, chứng từ hợp lệ (trường hợp những hóa đơn, chứng từ này chưa được bổ sung).";
