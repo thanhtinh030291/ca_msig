@@ -27,6 +27,8 @@ $max = config('constants.minMaxLength.max');
 
                 {{ Form::label('description', __('message.description'), array('class' => 'labelas')) }} <span class="text-danger">*</span>
                     {{ Form::textarea('description', $data->description, [ 'class' => 'form-control editor','placeholder' => __('message.name'), 'required']) }}<br/>
+                {{ Form::label('description_en', __('message.description'). " EN", array('class' => 'labelas')) }} <span class="text-danger">*</span>
+                    {{ Form::textarea('description_en', $data->description_en, [ 'class' => 'form-control editor','placeholder' => __('message.name')]) }}<br/>
 
                 <div class="text-center tour-button">
                     <a class="btn btnt btn-secondary" href="{{url('admin/term')}}">

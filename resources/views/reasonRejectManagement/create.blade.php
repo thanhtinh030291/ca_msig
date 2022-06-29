@@ -23,10 +23,13 @@
                     {{ Form::text('name', old('name'), [ 'class' => 'form-control item-price','placeholder' => __('message.name'), 'required']) }}<br/>
 
                     {{ Form::label('term', __('message.term'), array('class' => 'labelas')) }} 
-                    {{ Form::select('term_id', $listTerm, old('term_id'), ['class' => ' select2 form-control', 'placeholder' => 'None']) }}<br>
+                    {{ Form::select('term_id[]', $listTerm, old('term_id'), ['class' => ' select2 form-control', 'placeholder' => 'None' ,'multiple' => 'multiple']) }}<br>
 
                     {{ Form::label('template', __('message.template')) }}
                     {{ Form::textarea('template', old('template'), ['id' => 'template_reject', 'class' => 'form-control editor2']) }}<br>
+
+                    {{ Form::label('template', __('message.template')." EN") }}
+                    {{ Form::textarea('template_en', old('template_en'), ['id' => 'template_reject2', 'class' => 'form-control editor2']) }}<br>
                 <div class="text-center tour-button">
                     <a class="btn btnt btn-secondary" href="{{url('admin/reason_reject')}}">
                         {{ __('message.back')}}

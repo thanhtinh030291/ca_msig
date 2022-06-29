@@ -14,6 +14,11 @@
             {{ __('message.create')}}
         </a>
     </div>
+    <div class="col-md-12">
+        <a class="btn btn-primary pull-right" href="{{ url('admin/reason_reject_strips') }}">
+            Auto fixed Template
+        </a>
+    </div>
 </div>
 <br>
 <div class="row">
