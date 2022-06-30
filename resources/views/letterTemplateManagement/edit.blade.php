@@ -41,6 +41,8 @@ $max = config('constants.minMaxLength.max');
                 {{ Form::label('claim_type', __('message.claim_type')) }}
                 {{ Form::select('claim_type', config('constants.claim_type'),$data->claim_type, ['id' => 'claim_type', 'class' => 'form-control ']) }}<br>
 
+                {{ Form::label('claim_type', "LOCK") }}
+                {{ Form::select('lock', [0=>"no",1=>'yes'], $data->lock, ['id' => 'lock', 'class' => 'form-control ']) }}<br>
                 <div class="text-center tour-button">
                     <a class="btn btnt btn-secondary" href="{{url('admin/letter_template')}}">
                         {{ __('message.back')}}
