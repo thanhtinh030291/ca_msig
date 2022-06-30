@@ -100,7 +100,7 @@ class Claim extends BaseModel
     public function scopeItemClaimReject($query)
     {
         $conditionTerm = function ($q) {
-            $q->with('term');
+            //$q->with('term');
         };
         $condition = function ($q) use ($conditionTerm) {
             $q->whereNotNull('reason_reject_id');

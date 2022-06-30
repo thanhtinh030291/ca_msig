@@ -1580,21 +1580,25 @@ class ClaimController extends Controller
         $htm_infoReject = "";
         $htm_infoReject_en = "";
         if ($deniedAmt != 0 || $CSRRemark) {
-            $htm_infoReject = "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>
-            Số tiền không được bồi thường:  <strong style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>".formatPrice($deniedAmt). " VNĐ</strong>" .
-            "</span></p>" . 
-            "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Diễn giải:</span></p>" .
-            implode('', $CSRRemark) .
-            "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Quý khách vui lòng tham khảo (các) điều khoản sau:</span></p>" .
-            implode('', $TermRemark);
-
-            $htm_infoReject_en = "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>
+            $htm_infoReject = "<p style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>
+            Số tiền không được bồi thường:  <strong style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>".formatPrice($deniedAmt). " đồng</strong>" .
+            "</span><br>" . 
+            "<span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Diễn giải:</span><br>" .
+            implode('<br>', $CSRRemark) ;
+            if(!empty($TermRemark)){
+                $htm_infoReject .= "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Quý khách vui lòng tham khảo (các) điều khoản sau:</span></p><ul>" .
+                implode('', $TermRemark)."</ul></p>";
+            }else{
+                $htm_infoReject .= "</p>";
+            }
+            
+            $htm_infoReject_en = "<p style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>
             Rejected amount:  <strong style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>".formatPrice($deniedAmt). " VND</strong>" .
             "</span></p>" . 
             "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Description:</span></p>" .
-            implode('', $CSRRemark_en) .
-            "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Please kindly refer to the below condition(s):</span></p>" .
-            implode('', $TermRemark_en);
+            implode('<br>', $CSRRemark_en) .
+            "<p><span style='font-family: arial, helvetica, sans-serif; font-size: 10pt;'>Please kindly refer to the below condition(s):</span></p><ul>" .
+            implode('', $TermRemark)."</ul></p>";
         }
         $content = str_replace('[[$infoReject]]', $htm_infoReject , $content);
         $content = str_replace('[[$infoReject_en]]', $htm_infoReject_en , $content);
@@ -1649,9 +1653,9 @@ class ClaimController extends Controller
                             <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">'.$col_paid_amount.'</th>
                         </tr>
                         <tr>
-                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(VNĐ)</th>
-                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(VNĐ)</th>
-                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(VNĐ)</th>
+                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(đồng)</th>
+                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(đồng)</th>
+                            <th style="border: 1px solid #1e91e3 ; font-family: arial, helvetica, sans-serif ; font-size: 10pt">(đồng)</th>
                         </tr>
                     </thead>';
         $data_ben_type = [];
@@ -2592,7 +2596,7 @@ class ClaimController extends Controller
         $incur_date = $lang == 'en' ? 'Treatment Period' : 'Ngày khám';
         $diagnosis = $lang == 'en' ? 'Diagnosis' : 'Bệnh';
         $benefit = $lang == 'en' ? 'Benefit' : 'Quyền lợi ';
-        $app_amt = $lang == 'en' ? 'Paid amount <br />(VND)' : 'Số tiền bồi thường <br />(VNĐ)';
+        $app_amt = $lang == 'en' ? 'Paid amount <br />(đồng)' : 'Số tiền bồi thường <br />(đồng)';
         $total = $lang == 'en' ? 'Total' : 'Tổng cộng';
         $html = '
         <style type="text/css">

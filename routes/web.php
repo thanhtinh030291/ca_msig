@@ -78,6 +78,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/test/{claim_id}', 'ClaimController@test')->name('test.index');
 
         Route::resource('reason_reject', 'ReasonRejectController');
+        Route::get('/reason_reject_strips', 'ReasonRejectController@strips')->name('reason_reject.strips');
         Route::resource('product', 'ProductController');
         Route::resource('term', 'TermController');
         Route::resource('letter_template', 'LetterTemplateController');

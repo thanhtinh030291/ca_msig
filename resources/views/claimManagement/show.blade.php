@@ -319,7 +319,8 @@ $totalAmount = 0;
                                         'data-claim_id' => $data->id,
                                         'data-note' => $item->note[$i]['data'],
                                         'data-status' => $item->status,
-                                        'data-id' => $item->id
+                                        'data-id' => $item->id,
+                                        'data-letter_name' => $item->letter_template->name
                                         ]) !!}
                                         <br>
                                         {{$item->note[$i]['created_at']}}
@@ -342,7 +343,8 @@ $totalAmount = 0;
                                         'data-note' => $item->wait['data'],
                                         'data-status' => $item->created_user == $user->id ? config('constants.statusExport.edit') : config('constants.statusExport.note_save'),
                                         'data-id' => $item->id,
-                                        'data-liststatus' => json_encode($item->list_status)
+                                        'data-liststatus' => json_encode($item->list_status),
+                                        'data-letter_name' => $item->letter_template->name
                                         ]) !!}
                                         <br>
                                         {{$item->wait['created_at']}}
@@ -523,6 +525,10 @@ $totalAmount = 0;
 <script src="{{ asset('js/tinymce.js?vision=') .$vision }}"></script>
 <script src="{{ asset('js/jquery.tag-editor.min.js?vision=') .$vision }}"></script>
 <script>
+    @php
+        $name_lock = \App\LetterTemplate::where('lock',1)->pluck('name');    
+    @endphp
+    var arr_lt = @json($name_lock);
     $("#url_form_request").fileinput();
     function sendMailCustomerModal(e){
         var claim_id =  e.dataset.claim_id;
@@ -539,10 +545,14 @@ $totalAmount = 0;
         var letter_template_id = e.dataset.letter_template_id;
         var status = e.dataset.status;
         var id = e.dataset.id;
+        var letter_name = e.dataset.letter_name;
         $('.status_letter').val(status).change();
         $('.export_letter_id').val(id);
         $('.ex_claim_id').val(claim_id);
         tinymce.get("preview_letter").setContent("");
+        if(arr_lt.includes(letter_name) == true){
+                tinyMCE.get('preview_letter').setMode('readonly');
+        }
         //CKEDITOR.instances['preview_letter'].setData("");
         $.ajax({
         url: '/admin/previewLetter',
@@ -564,6 +574,12 @@ $totalAmount = 0;
         var id = e.dataset.id;
         var note = e.dataset.note;
         var list_status = e.dataset.liststatus;
+        var letter_name = e.dataset.letter_name;
+        @hasanyrole('Claim Independent|Admin|Supper')
+            if(arr_lt.includes(letter_name) == true){
+                tinyMCE.get('note_letter').setMode('readonly');
+            }
+        @endhasanyrole
         if(status == {{ config('constants.statusExport.edit')}}){
             $('#button_save').show();
         }else{

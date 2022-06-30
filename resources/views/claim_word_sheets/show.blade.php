@@ -144,8 +144,12 @@ function replaceTemplace(str , id = null , table = ""){
     return result;
 }
 
-function binding2Input(e , classElement){
-    $('.'+classElement).val(e.value.replace(/(,)/gm, "."));
+function binding2Input(e , classElement , is_replace = null){
+    if(is_replace == null){
+        $('.'+classElement).val(e.value.replace(/(,)/gm, "."));
+    }else{
+        $('.'+classElement).val(e.value);
+    }
 }
 
 var wrapper         = $(".input_fields_wrap"); //Fields wrapper

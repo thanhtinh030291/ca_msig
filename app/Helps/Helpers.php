@@ -552,7 +552,7 @@ function benefitOfClaim($HBS_CL_CLAIM){
 
 // print CRRMArk AND TERM
 
-function CSRRemark_TermRemark($claim){
+function CSRRemark_TermRemark($claim ,$lang = null){
     $CSRRemark = [];
     $TermRemark = [];
     $hasTerm3 = null;
@@ -570,18 +570,20 @@ function CSRRemark_TermRemark($claim){
     $itemOfClaim = $claim->item_of_claim->groupBy('reason_reject_id');
     $templateHaveMeger = [];
     foreach ($itemOfClaim as $key => $value) {
-        $template = $value[0]->reason_reject->template;
-        if(isset($value[0]->reason_reject->term->fullTextTerm)){
-            $TermRemark[] = $value[0]->reason_reject->term->fullTextTerm;
-        }
+        $template = $lang == 'en' ?  "- ".$value[0]->reason_reject->template_en : "- ".$value[0]->reason_reject->template;
         
+        if(isset($value[0]->reason_reject->term)){
+            foreach ($value[0]->reason_reject->term as $key_t => $value_t) {
+                $TermRemark[] = $lang == 'en' ? $value_t->fullTextTermEn : $value_t->fullTextTerm;
+            }
+        }
         if (!preg_match('/\[Begin\].*\[End\]/U', $template)){
             foreach ($value as $keyItem => $item) {
                 $template_new = $template;
                 foreach ( $arrKeyRep as $key2 => $value2) {
                     $template_new = str_replace($value2, '$parameter', $template_new);
                 };
-                $CSRRemark[] = Str::replaceArray('$parameter', $item->parameters, $template_new);
+                $CSRRemark[] =  str_replace("  "," ",trim(Str::replaceArray('$parameter', $item->parameters, $template_new)));
             }
         }else{
             preg_match_all('/\[Begin\].*\[End\]/U', $template, $matches);
@@ -592,44 +594,21 @@ function CSRRemark_TermRemark($claim){
                     foreach ( $arrKeyRep as $key2 => $value2) {
                         $valueMatche = str_replace( $value2, '$parameter', $valueMatche);
                     };
-                    $arrMatche[$keyMatche][] =  Str::replaceArray('$parameter', preg_replace('/(,)/', '.', $item->parameters), $valueMatche);
+                    $arrMatche[$keyMatche][] =  Str::replaceArray('$parameter',$item->parameters, $valueMatche);
                 }
             }
             // array to string 
             $arr_str = [];
             foreach ($arrMatche as $key => $value) {
+                
                 $arr_str[] = preg_replace('/\[Begin\]|\[End\]/', '', implode(", ", $value));
             }
-            $CSRRemark[] = Str::replaceArray('$arrParameter', $arr_str, $template_new);
-        }
-    }
-    $TermRemark = collect($TermRemark)->sortBy('group')->groupBy('group');
-    $show_term = [];
-    foreach ($TermRemark as $key => $value) {
-        
-        switch ($key) {
-            case '12':
-                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 10pt'>Quý khách vui lòng tham khảo Điều 12_ Các loại trừ trách nhiệm bảo hiểm:</span></p>
-                <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 10pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được Fubon chi trả theo quy tắc này, bao gồm:</p>
-                ";
-                break;
-            case '16':
-                    $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 10pt'>Quý khách vui lòng tham khảo Điều 16_ Các giới hạn và loại trừ:</span></p>
-                    <p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 10pt'>Những hoạt động chẩn đoán, xét nghiệm, điều trị, liên quan đến ốm đau bệnh tật, tai nạn, tử vong, thương tật phát sinh chi phí liên quan sẽ không được chi trả theo hợp đồng này, bao gồm:</p>
-                    ";
-                    break;
-            default:
-                $show_term[] = "<p style='text-align: justify;'><span style='font-family: arial, helvetica, sans-serif ; font-size: 10pt'>Quý khách vui lòng tham khảo các định nghĩa của Quy tắc và Điều khoản bảo hiểm Chăm sóc sức khỏe:</span></p>";
-                break;
-        }
-        $collect_value = collect($value)->sortBy('num');
-        foreach ($collect_value as $key_c => $value_c) {
-            $show_term[] = $value_c['content'];
+            $CSRRemark[] =  str_replace("  "," ",trim(Str::replaceArray('$arrParameter', $arr_str, $template_new)));
         }
     }
     
-    
-    return [ 'CSRRemark' => $CSRRemark , 'TermRemark' => $show_term , 'itemsReject' => $itemsReject , 'sumAmountReject' => $sumAmountReject];
+    $TermRemark = collect($TermRemark)->unique()->toArray();
+    return [ 'CSRRemark' => $CSRRemark , 'TermRemark' => $TermRemark , 'itemsReject' => $itemsReject , 'sumAmountReject' => $sumAmountReject];
     
 }
 

@@ -20,9 +20,14 @@ class ReasonReject extends BaseModel
     {
         return $this->hasOne('App\User', 'id', 'created_user');
     }
-    public function term()
-    {
-        return $this->hasOne('App\Term', 'id', 'term_id');
-    }
 
+    public function getTermAttribute()
+    {
+        if(empty($this->term_id)){
+            return null;
+        }else{
+            $term = explode(",",$this->term_id);
+            return Term::whereIn('id',$term)->get();
+        }
+    }
 }
